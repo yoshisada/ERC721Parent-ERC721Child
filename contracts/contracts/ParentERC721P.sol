@@ -22,6 +22,10 @@ contract ParentERC721P is ERC721P, ERC721URIStorage, ERC721Burnable, AccessContr
         _setTokenURI(tokenId, uri);
     }
 
+    function updateTokenUri(uint256 id, string memory uri) public onlyRole(MINTER_ROLE){
+        _setTokenURI(id, uri);
+    }
+
     // The following functions are overrides required by Solidity.
 
     function _burn(uint256 tokenId) internal override(ERC721P, ERC721URIStorage) {

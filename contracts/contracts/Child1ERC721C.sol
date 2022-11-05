@@ -24,6 +24,10 @@ contract Child1ERC721C is ERC721C, ERC721URIStorage, AccessControl {
         _setTokenURI(tokenId, uri);
     }
 
+    function updateTokenUri(uint256 id, string memory uri) public onlyRole(MINTER_ROLE){
+        _setTokenURI(id, uri);
+    }
+
     // The following functions are overrides required by Solidity.
 
     function _burn(uint256 tokenId) internal override(ERC721C, ERC721URIStorage) {
