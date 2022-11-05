@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>BLOBTEST</title>
+  
+  <script type=module src="generate.mjs"></script>
+  <script type=module>
+  
+    import { getBlob } from './generate.mjs'
+    
+    let addressList = [
+        "0x34972AC55b6dC2af43C60CDA70c600723FACf30f",
+        "0x62281dfbac4ccbd33e83749fdcafb8c410025a1e",
+        "0x000095E79eAC4d76aab57cB2c1f091d553b36ca0",
+        "0x326c977e6efc84e512bb9c30f76e30c160ed06fb",
+    ]
+    
+    let addrIndex = 0;
+    let address = addressList[addrIndex];
+    
+    function printCallback(imageData) {
+        console.log(`printCallback: ${imageData}`);
+    }
+    
+    getBlob(address, printCallback);
+  
+  </script>
+  
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
+</head>
+
+<body></body>
+
+</html>

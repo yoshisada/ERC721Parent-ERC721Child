@@ -1,9 +1,30 @@
 html,
 body {
+  width: 100vw;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+@font-face {
+  font-family: 'AKBold';
+  src: url('../fonts/Atkinson-Hyperlegible-Bold-102.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'AKBoldItalic';
+  src: url('../fonts/Atkinson-Hyperlegible-BoldItalic-102.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'AKItalic';
+  src: url('../fonts/Atkinson-Hyperlegible-Italic-102.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'AKRegular';
+  src: url('../fonts/Atkinson-Hyperlegible-Regular-102.woff') format('woff');
 }
 
 a {
