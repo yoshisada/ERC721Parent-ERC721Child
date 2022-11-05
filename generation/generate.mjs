@@ -122,38 +122,51 @@ function getColor(x) {
   return numToColor(colorNum);
 }
 
+function pickColor(x) {
+  // rng produces float between 0 and 1, convert to useful integer
+  x *= 100;
+  x = parseInt(x.toString());
+
+  let colors = ["#000000", "#575757", "#ad2323", "#2a4bd7", "#1d6914", "#814a19", "#8126c0", "#a0a0a0", "#81c57a", "#9dafff", "#29d0d0", "#ff9233", "#ffee33", "#e9debb", "#ffcdf3", "#ffffff"];
+  return colors[x % colors.length];
+}
+
 
 function drawSquares(width, height, seed) {
+
   /// In Node.js
   /*
   const seedrandom = require('seedrandom');
-  const rng = seedrandom('[your seed here]');
+  const rng = seedrandom(seed);
   */
   // On The Browser
   const rng = new Math.seedrandom(seed);
-  //let randomNumber = rng();
 
   let canvasSize = Math.min(width, height);
   let numSquares = 16;
   let squareSize = canvasSize / numSquares;
+  let alphaVal = 0.5;
+
+  function addRect(curColor, i, j, xOff, yOff) {
+    let xPos = i * squareSize + xOff * canvasSize/2;
+    let yPos = j * squareSize + yOff * canvasSize/2;
+      new Rectangle(squareSize, squareSize, curColor)
+        .loc(xPos, yPos)
+        .alp(alphaVal);
+  }
 
   for (let i=0; i < numSquares/2; i++) {
     for (let j=0; j < numSquares/2; j++) {
-      let curColor = numToColor(rng());
-      new Rectangle(squareSize, squareSize, curColor)
-        .loc(i * squareSize, j * squareSize)
-        .alp(0.3);
-      new Rectangle(squareSize, squareSize, curColor)
-        .loc(i * squareSize + canvasSize/2, j * squareSize)
-        .alp(0.3);
-      new Rectangle(squareSize, squareSize, curColor)
-        .loc(i * squareSize, j * squareSize + canvasSize/2)
-        .alp(0.3);
-      new Rectangle(squareSize, squareSize, curColor)
-        .loc(i * squareSize + canvasSize/2, j * squareSize + canvasSize/2)
-        .alp(0.3);
+
+      let curColor = pickColor(rng());
+
+      addRect(curColor, i, j, 0, 0);
+      addRect(curColor, i, j, 1, 0);
+      addRect(curColor, i, j, 0, 1);
+      addRect(curColor, i, j, 1, 1);
     }
   }
+
 }
 
 // main export
