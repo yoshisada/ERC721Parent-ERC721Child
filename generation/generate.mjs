@@ -1,7 +1,7 @@
 // original logic from: https://codepen.io/zimjs/pen/jOMZjOy
 
 //import zim from "https://zimjs.org/cdn/01/zim";
-import zim from "./scripts/zim.mjs";
+import zim, { Rectangle } from "./scripts/zim.mjs";
 
 
 function getColors(address, numColors) {
@@ -33,33 +33,37 @@ function getDelayFactor(address) {
     return parseInt(delayNibble, 16);
 }
 
-function getCurve(frame, address) {
+function getCurve(frame, address, extraSeed="") {
 
-    let curveFactor = getCurveFactor(address);
-    let speedFactor = getSpeedFactor(address);
-    let delayFactor = getDelayFactor(address);
+  let curveFactor = getCurveFactor(address);
+  let speedFactor = getSpeedFactor(address);
+  let delayFactor = getDelayFactor(address);
 
-    const stage = frame.stage;
+  const stage = frame.stage;
 	const stageW = frame.width;
 	const stageH = frame.height;
 
-    const params = {
-        curve: curveFactor / 32, // curve 0-8
-        speed: speedFactor / 2,  // speed 0-8
-        delay: delayFactor / 8,  // delay 0-2
-    }
+  const params = {
+      curve: curveFactor / 32, // curve 0-8
+      speed: speedFactor / 2,  // speed 0-8
+      delay: delayFactor / 8,  // delay 0-2
+  }
 
 	const segments = 180; // how many lines
 	const delta = 360/segments; // angle for each line
 	const inner = 50; // inner radius - multiplied by 2 at largest ring, etc.
 	const outer = 200; // outer radius
 	const variation = outer-inner; // maximum noise        
-    let colorArr = getColors(address, 6);
+  const colorArr = getColors(address, 6);
 	const colors = series(colorArr);
 	let time = 0; 
 
-    //console.log(colorArr);
-    //console.log(params)
+  //console.log(colorArr);
+  //console.log(params)
+
+  if (extraSeed != "") {
+    drawSquares(stageW, stageH, extraSeed);
+  }
 
 	var g = new Generator({
 		stamp:gen,
@@ -101,15 +105,67 @@ function addLogo() {
 		.sca(.3).alp(.7).hov(1).expand(10).pos(30,36,LEFT,BOTTOM);
 }
 
+function numToColor(x) {
+  let colorStr = x.toString(16);
+
+  while (colorStr.length < 6) {
+    colorStr = '0' + colorStr;
+  }
+
+  let l = colorStr.length;
+  return `#${colorStr.substring(l-6, l)}`
+}
+
+function getColor(x) {
+  let colorMult = 0x978349;
+  let colorNum = (x+1) * colorMult;
+  return numToColor(colorNum);
+}
+
+
+function drawSquares(width, height, seed) {
+  /// In Node.js
+  /*
+  const seedrandom = require('seedrandom');
+  const rng = seedrandom('[your seed here]');
+  */
+  // On The Browser
+  const rng = new Math.seedrandom(seed);
+  //let randomNumber = rng();
+
+  let canvasSize = Math.min(width, height);
+  let numSquares = 16;
+  let squareSize = canvasSize / numSquares;
+
+  for (let i=0; i < numSquares/2; i++) {
+    for (let j=0; j < numSquares/2; j++) {
+      let curColor = numToColor(rng());
+      new Rectangle(squareSize, squareSize, curColor)
+        .loc(i * squareSize, j * squareSize)
+        .alp(0.3);
+      new Rectangle(squareSize, squareSize, curColor)
+        .loc(i * squareSize + canvasSize/2, j * squareSize)
+        .alp(0.3);
+      new Rectangle(squareSize, squareSize, curColor)
+        .loc(i * squareSize, j * squareSize + canvasSize/2)
+        .alp(0.3);
+      new Rectangle(squareSize, squareSize, curColor)
+        .loc(i * squareSize + canvasSize/2, j * squareSize + canvasSize/2)
+        .alp(0.3);
+    }
+  }
+}
+
 // main export
 // expects an address string of length 42, starting with "0x"
+// optional "extra" string argument for mixing
 // calls callback with dataURL of contents
-export function getBlob(address, callback) {
+export function getBlob(address, callback, extra) {
 
-    let frame = new Frame(FIT, 1024, 768, null, null, ready);
+    let frame = new Frame(FIT, 800, 800, null, null, ready);
 
     function ready() {
-        getCurve(frame, address);
+        getCurve(frame, address, extra);
 
         const canvas = document.getElementById('myCanvas');
         const dataURL = canvas.toDataURL();
