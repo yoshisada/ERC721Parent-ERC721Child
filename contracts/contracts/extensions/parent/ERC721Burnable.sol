@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../ERC721P.sol";
+import "../../ERC721P/ERC721P.sol";
 import "@openzeppelin/contracts/utils/Context.sol";
 
 /**

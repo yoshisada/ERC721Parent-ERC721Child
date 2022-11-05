@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.0;
 
-import "../../ERC721C.sol";
+import "../../ERC721C/ERC721C.sol";
 
 /**
  * @dev ERC721 token with storage based token URI management.

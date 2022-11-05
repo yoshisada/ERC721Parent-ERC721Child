@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "./ERC721C.sol";
+import "./ERC721C/ERC721C.sol";
 import "./extensions/child/ERC721URIStorage.sol";
 //import "./extensions/child/ERC721Burnable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
