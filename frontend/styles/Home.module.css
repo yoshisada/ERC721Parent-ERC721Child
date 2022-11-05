@@ -33,7 +33,9 @@
 
 .credit {
   display: flex;
+  align-items: center; 
   justify-content: flex-end;
+  font-size: max(1rem, 2vw);
   flex-grow: 1;
 }
 
@@ -68,45 +70,11 @@
   color: #8C8C8C;
 }
 
-.triplegrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: 80px;
-}
-
-.triplegriditem {
-  padding: 0 50px 0 50px;
-}
-
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 800px;
-}
-
 .logo {
   display: flex;
   flex-grow: 1;
   align-items: center;
   height: 1em;
   margin-left: 0.5rem;
-}
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
 }
 
