@@ -1,7 +1,7 @@
 // original logic from: https://codepen.io/zimjs/pen/jOMZjOy
 
-import zim from "https://zimjs.org/cdn/01/zim";
-//import zim from "zim.mjs";
+//import zim from "https://zimjs.org/cdn/01/zim";
+import zim from "./scripts/zim.mjs";
 
 
 function getColors(address, numColors) {
