@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "10px",
     display: "flex",
     justifyContent: "end",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
         display: "none",
       },
   },
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     height: "60px",
     padding: "5px 0px 5px 80px",
     cursor: "pointer",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down("xs")]: {
         display: "none",
       },
   },

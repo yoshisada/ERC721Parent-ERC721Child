@@ -2,7 +2,11 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import NavBar from '../components/NavBar'
-import { Box, Divider } from '@material-ui/core'
+import CollapseMenu from '../components/CollapseMenu'
+import {LooksOneOutlined, LooksTwoOutlined} from '@mui/icons-material';
+import { Box, Divider } from '@material-ui/core' ;
+import logo from '../assets/ssmy.png';
+import ethLogo from '../assets/eth-logo.png';
 
 export default function Home() {
   return (
@@ -62,17 +66,29 @@ export default function Home() {
 
       </main>
 
+      <main className={styles.main}>
+        <h1 className={styles.title}>
+          <a>Use Cases</a>
+        </h1>
+
+        <CollapseMenu/>
+
+      </main>
+
       <footer className={styles.footer}>
         <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+          href="https://ssmytech.com"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
           <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+            <Image src={logo} alt="SSMY Logo" width={96}/>
           </span>
         </a>
+        
+        <h1 className={styles.credit}>A Product of ETHGlobalSF 2022 
+          <Image src={ethLogo} alt="Ethereum" width={40}/>
+        </h1>
       </footer>
     </div>
   )
