@@ -40,7 +40,7 @@ contract ERC721C is Context, ERC165, IERC721, IERC721Metadata {
     mapping(address => mapping(address => bool)) private _operatorApprovals;
 
     IERC721P private _parentContract;
-    address private _contractAddress;
+    address public _contractAddress;
 
     /**
      * @dev Initializes the contract by setting a `name` and a `symbol` to the token collection.
@@ -49,6 +49,7 @@ contract ERC721C is Context, ERC165, IERC721, IERC721Metadata {
         _name = name_;
         _symbol = symbol_;
         _parentContract = IERC721P(parentContract);
+        _contractAddress = parentContract;
     }
 
     /**
