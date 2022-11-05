@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 /**
  * @dev Required interface of an ERC721 compliant contract.
  */
-interface IERC721C is IERC165 {
+interface IERC721P is IERC165 {
     /**
      * @dev Emitted when `tokenId` token is transferred from `from` to `to`.
      */
@@ -37,6 +37,8 @@ interface IERC721C is IERC165 {
      * - `tokenId` must exist.
      */
     function ownerOf(uint256 tokenId) external view returns (address owner);
+
+    function addChildToken(uint256 tokenIdChild, uint256 tokenIdParent, address to) external;
 
     /**
      * @dev Safely transfers `tokenId` token from `from` to `to`.
@@ -99,8 +101,6 @@ interface IERC721C is IERC165 {
         address to,
         uint256 tokenId
     ) external;
-
-    function burn(uint256 tokenId) external;
 
     /**
      * @dev Gives permission to `to` to transfer `tokenId` token to another account.

@@ -74,17 +74,26 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
         _childContracts[childContract] = true;
     }
 
-    function addChildToken(uint256 tokenIdChild, uint256 tokenIdParent) public view{//REMOVE https://ethereum.stackexchange.com/questions/1891/whats-the-difference-between-msg-sender-and-tx-origin
+    function addChildToken(uint256 tokenIdChild, uint256 tokenIdParent, address to) public{//REMOVE https://ethereum.stackexchange.com/questions/1891/whats-the-difference-between-msg-sender-and-tx-origin
         //check if caller is a valid child contract
         require(_childContracts[msg.sender], "Caller is not a valid child contract");
         //check to see if function is being called from a contract
         require(msg.sender != tx.origin, "Caller is not a contract");
-        Child temp = Child(IERC721C(msg.sender), tokenIdChild, false);
+        require(ERC721P.ownerOf(tokenIdParent) == to, "ERC721P: To address does not own this parent token");
+        
+        Child memory temp = Child(IERC721C(msg.sender), tokenIdChild, false);
         return _childTokens[tokenIdParent].push(temp); //this will return length of array
         // might run into issues if a single child element is burned, how do we remove it while keeping index?
         // maybe fill with zero address if it is deleted
 
     }
+
+    // function removeChildToken(uint256 tokenIdChild, uint256 tokenIdParent) public{
+
+    // }
+
+    //remove child token
+    // probably should be internal function
 
     /**
      * @dev See {IERC721-balanceOf}.
@@ -140,7 +149,7 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
      * @dev See {IERC721-approve}.
      */
     function approve(address to, uint256 tokenId) public virtual override {
-        address owner = ERC721.ownerOf(tokenId);
+        address owner = ERC721P.ownerOf(tokenId);
         require(to != owner, "ERC721: approval to current owner");
 
         require(
@@ -187,6 +196,8 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
 
         _transfer(from, to, tokenId);
     }
+
+    
 
     /**
      * @dev See {IERC721-safeTransferFrom}.
@@ -267,7 +278,7 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
      * - `tokenId` must exist.
      */
     function _isApprovedOrOwner(address spender, uint256 tokenId) internal view virtual returns (bool) {
-        address owner = ERC721.ownerOf(tokenId);
+        address owner = ERC721P.ownerOf(tokenId);
         return (spender == owner || isApprovedForAll(owner, spender) || getApproved(tokenId) == spender);
     }
 
@@ -349,12 +360,12 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
      * Emits a {Transfer} event.
      */
     function _burn(uint256 tokenId) internal virtual {
-        address owner = ERC721.ownerOf(tokenId);
+        address owner = ERC721P.ownerOf(tokenId);
 
         _beforeTokenTransfer(owner, address(0), tokenId, 1);
 
         // Update ownership in case tokenId was transferred by `_beforeTokenTransfer` hook
-        owner = ERC721.ownerOf(tokenId);
+        owner = ERC721P.ownerOf(tokenId);
 
         // Clear approvals
         delete _tokenApprovals[tokenId];
@@ -368,9 +379,10 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
         uint length = _childTokens[tokenId].length;
         for(uint i = 0; i <length; i++){
             if(!_childTokens[tokenId][i].deleted){
-                _childTokens[tokenId][i].childContract.burn(_childTokens[tokenId][i].childContract.tokenId);
+                _childTokens[tokenId][i].childContract.burn(_childTokens[tokenId][i].tokenId);
             }
         }
+        delete _childTokens[tokenId];
 
         emit Transfer(owner, address(0), tokenId);
 
@@ -393,13 +405,13 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
         address to,
         uint256 tokenId
     ) internal virtual {
-        require(ERC721.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
+        require(ERC721P.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
         require(to != address(0), "ERC721: transfer to the zero address");
 
         _beforeTokenTransfer(from, to, tokenId, 1);
 
         // Check that tokenId was not transferred by `_beforeTokenTransfer` hook
-        require(ERC721.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
+        require(ERC721P.ownerOf(tokenId) == from, "ERC721: transfer from incorrect owner");
 
         // Clear approvals from the previous owner
         delete _tokenApprovals[tokenId];
@@ -415,6 +427,13 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
         }
         _owners[tokenId] = to;
 
+        uint length = _childTokens[tokenId].length;
+        for(uint i = 0; i <length; i++){
+            if(!_childTokens[tokenId][i].deleted){
+                _childTokens[tokenId][i].childContract.transferFrom(from, to, _childTokens[tokenId][i].tokenId);
+            }
+        }
+
         emit Transfer(from, to, tokenId);
 
         _afterTokenTransfer(from, to, tokenId, 1);
@@ -427,7 +446,7 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
      */
     function _approve(address to, uint256 tokenId) internal virtual {
         _tokenApprovals[tokenId] = to;
-        emit Approval(ERC721.ownerOf(tokenId), to, tokenId);
+        emit Approval(ERC721P.ownerOf(tokenId), to, tokenId);
     }
 
     /**
