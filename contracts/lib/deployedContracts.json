@@ -1,0 +1,20 @@
+{
+  "mainnet": {
+    "parent": "0x1d85b20B2cD653f9871Fe4b2B6A12C9d31e9e192",
+    "child1": "0x1af8F7a1AD78185166b264bb399C94e0d363F872",
+    "child2": "0x1af8F7a1AD78185166b264bb399C94e0d363F872",
+    "storefront": "0x1af8F7a1AD78185166b264bb399C94e0d363F872"
+  },
+  "rinkeby": {
+    "parent": "0x1d85b20B2cD653f9871Fe4b2B6A12C9d31e9e192",
+    "child1": "0x1af8F7a1AD78185166b264bb399C94e0d363F872",
+    "child2": "0x1af8F7a1AD78185166b264bb399C94e0d363F872",
+    "storefront": "0x1af8F7a1AD78185166b264bb399C94e0d363F872"
+  },
+  "goerli": {
+    "parent": "0x1d85b20B2cD653f9871Fe4b2B6A12C9d31e9e192",
+    "child1": "0x1af8F7a1AD78185166b264bb399C94e0d363F872",
+    "child2": "0x1af8F7a1AD78185166b264bb399C94e0d363F872",
+    "storefront": "0x1af8F7a1AD78185166b264bb399C94e0d363F872"
+  }
+}

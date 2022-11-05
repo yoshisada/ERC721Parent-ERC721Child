@@ -11,58 +11,6 @@ describe('ERC721P and ERC721C', function () {
   let addr1
   let addr2
 
-  const testNFTs = [
-    {
-      tokenURI: 'QmXvdXnXWW84zf8oSPMQsMmM6Dii2TtdCUQkxNAbuou1br',
-      printCount: '20',
-      price: '10000000000',
-    },
-    {
-      tokenURI: 'Qmc24dLy8mQ8jTJcTwfCSqHoiPESABw3PGdV6CNx2B2fz2',
-      printCount: '20',
-      price: '10000000000',
-    },
-    {
-      tokenURI: 'QmboWvytdoiJPbe87REdpbsVX2KTfP2MEsGoPYAfqvkWi6',
-      printCount: '200',
-      price: '1000000000000',
-    },
-    {
-      tokenURI: 'QmVci79ETvDmfBcE1vJYajXzhC2C5q1rC5yxk7cQv5TfoR',
-      printCount: '200',
-      price: '1000000000000',
-    },
-    {
-      tokenURI: 'QmYmqJpbMNNBvs5KigoW1WoVg9G5irHTMJzxXK877QSoQb',
-      printCount: '200',
-      price: '1000000000000',
-    },
-    {
-      tokenURI: 'QmU9bWsJX3tNJmx2yt2LNC4uFFm87Xne3DNJ9U1iGzAgpW',
-      printCount: '200',
-      price: '1000000000000',
-    },
-    {
-      tokenURI: 'QmUvg4nU11t8rESiWqXQNyJY2MfUbxae7xmjxno12rmxrx',
-      printCount: '200',
-      price: '1000000000000',
-    },
-    {
-      tokenURI: 'QmSCSt5vuz9ypkMgJ77ESjhZvVEpsLm3trGQqAvfjPtHn8',
-      printCount: '200',
-      price: '1000000000000',
-    },
-    {
-      tokenURI: 'QmS8k2JCjn9S4jFKwaGYaDut1mG3CMT19c4mqC3RmE5BBc',
-      printCount: '200',
-      price: '1000000000000',
-    },
-    {
-      tokenURI: 'QmX2LeeFhnSF3hH8M2M65QBKeQTbdtxHx6vyDhaqxYW6FV',
-      printCount: '200',
-      price: '1000000000000000',
-    },
-  ]
 
   // 1 parent 3 child setup
   async function p1c3() {

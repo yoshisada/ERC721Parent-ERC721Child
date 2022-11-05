@@ -7,7 +7,7 @@ import "./extensions/child/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "hardhat/console.sol";
 
-contract Child1ERC721C is ERC721C, ERC721URIStorage, AccessControl {
+contract ChildERC721C is ERC721C, ERC721URIStorage, AccessControl {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     constructor(address a) ERC721C("MyToken", "MTK", a) {

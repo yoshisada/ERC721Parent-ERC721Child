@@ -15,26 +15,48 @@ async function main() {
   console.log("Account balance: ", (await deployer.getBalance()).toString());
 
   //NFT deployment
-  const AnchainDrm1155 = await ethers.getContractFactory("AnchainDrm1155");
-  const anchaindrm1155 = await AnchainDrm1155.deploy();
-  deployedRecorder.recordContractAddress("anchaindrm1155", anchaindrm1155.address);
-  console.log("AnchainDrm1155 deployed to:", anchaindrm1155.address);
+  const ParentERC721P = await ethers.getContractFactory("ParentERC721P");
+  const parent = await ParentERC721P.deploy();
+  await parent.wait();
+  const ChildERC721C = await ethers.getContractFactory("ChildERC721C");
+  const child1 = await ChildERC721C.deploy(parent.address);
+  const child2 = await ChildERC721C.deploy(parent.address);
+  await child1.wait();
+  await child2.wait();
+  await parent.addChildContract(child1.address);
+  await parent.addChildContract(child2.address);
+  deployedRecorder.recordContractAddress("parent", parent.address);
+  deployedRecorder.recordContractAddress("child1", child1.address);
+  deployedRecorder.recordContractAddress("child2", child2.address);
+  console.log("Parent deployed to:", parent.address);
+  console.log("Child 1 deployed to:", child1.address);
+  console.log("Child 2 deployed to:", child1.address);
 
   //Storefront deployment
-  const AnchainDrm1155Storefront = await ethers.getContractFactory("AnchainDrm1155Storefront");
-  const anchaindrm1155Storefront = await AnchainDrm1155Storefront.deploy(anchaindrm1155.address);
-  deployedRecorder.recordContractAddress("anchaindrm1155Storefront", anchaindrm1155Storefront.address);
-  console.log("AnchainDrm1155Storefront deployed to:", anchaindrm1155Storefront.address);
+  const ETHSFStorefront = await ethers.getContractFactory("ETHSFStorefront");
+  const ethsfstorefront = await ETHSFStorefront.deploy(parent.address, child1.address, child2.address);
+  deployedRecorder.recordContractAddress("storefront", ethsfstorefront.address);
+  console.log("ETHSF Storefront deployed to:", ethsfstorefront.address);
 
   //Grant storefront NFT storefront role
-  const storefrontRoleID = await anchaindrm1155.STOREFRONT_ROLE();
-  await anchaindrm1155.grantRole(storefrontRoleID, anchaindrm1155Storefront.address);
-  console.log("AnchainDrm1155Storefront granted NFT storefront role");
+  const minter = await parent.MINTER_ROLE();
+  await parent.grantRole(minter, ethsfstorefront.address);
+  console.log("Parent granted Storefront Minter role");
+
+  const minter1 = await child1.MINTER_ROLE();
+  await parent.grantRole(child1, ethsfstorefront.address);
+  console.log("Child 1 granted Storefront Minter role");
+
+  const minter2 = await child2.MINTER_ROLE();
+  await parent.grantRole(child2, ethsfstorefront.address);
+  console.log("Child 2 granted Storefront Minter role");
 
   //Grant deployer storefront curator role
-  const curatorRoleID = await anchaindrm1155Storefront.CURATOR_ROLE();
-  await anchaindrm1155Storefront.grantRole(curatorRoleID, deployer.address);
-  console.log("Deployer granted storefront curator role");
+  const curatorRoleID = await ethsfstorefront.CURATOR_ROLE();
+  const accountantRoleID = ethsfstorefront.ACCOUNTANT_ROLE()
+  await ethsfstorefront.grantRole(curatorRoleID, deployer.address);
+  await ethsfstorefront.grantRole(accountantRoleID, deployer.address);
+  console.log("Deployer granted storefront curator and accountant role");
 
   console.log("New account balance: ", (await deployer.getBalance()).toString());
 }
