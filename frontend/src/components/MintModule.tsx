@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { AppBar, Container, Toolbar, Box, Button} from '@mui/material';
 import logo from '../assets/ssmy.png';
@@ -37,27 +37,50 @@ const useStyles = makeStyles((theme) => ({
 
 function MintModule() {
 
-    const styles = useStyles();
-    const {metaMaskAccount, metaMaskStatus, connectMetaMask, mintParent} = useMetaMaskInterface();
+    const [parentToken, setParentToken] = useState('');
 
+    const styles = useStyles();
+    const {metaMaskAccount, metaMaskStatus, connectMetaMask, mintParent, mintChild1, mintChild2, getParentToken} = useMetaMaskInterface();
+
+    useEffect(() => {
+        async function fetchParent() {
+            const res = await getParentToken(metaMaskAccount);
+            setParentToken(res);
+        }
+        fetchParent();
+    }, [metaMaskAccount])
+    
     if (metaMaskStatus === "connected") {
+
+        if (parentToken == '') {
+            return(
+                <Box>
+                    <Box className={styles.buttonContainer}>
+                        <Button className={styles.mintButton} onClick={mintParent}>mint parent</Button>
+                    </Box>
+                </Box>
+            )
+        } else {
+            return(
+                <Box>
+                    <Box className={styles.buttonContainer}>
+                        <Button className={styles.mintButton} onClick={mintChild1}>mint child1</Button>
+                    </Box>
+                    <Box className={styles.buttonContainer}>
+                        <Button className={styles.mintButton} onClick={mintChild2}>mint child2</Button>
+                    </Box>
+                </Box>
+            )
+        }
+    } else {
         return(
             <Box>
                 <Box className={styles.buttonContainer}>
-                    <Button className={styles.mintButton} onClick={mintParent}>mint parent</Button>
+                    <Box className={styles.subText}>Please connect your wallet to mint</Box>
+                    <Button className={styles.mintButton} disabled={true}>mint</Button>
                 </Box>
             </Box>
         )
-    } else {
-
-    return(
-        <Box>
-            <Box className={styles.buttonContainer}>
-                <Box className={styles.subText}>Please connect your wallet to mint</Box>
-                <Button className={styles.mintButton} disabled={true}>mint</Button>
-            </Box>
-        </Box>
-    )
     }
 
 
