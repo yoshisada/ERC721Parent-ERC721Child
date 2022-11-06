@@ -6,7 +6,7 @@ dataSources:
     name: Storefront
     network: mumbai
     source:
-      address: "0x50a836cc05327750CC791E000620955a4Fc63248"
+      address: "0xc24c5028663850bfDdae07e246C731D5c4Ae857A"
       abi: Storefront
       startBlock: 29004700
     mapping:
@@ -47,7 +47,7 @@ dataSources:
     name: Parent
     network: mumbai
     source:
-      address: "0x9DFF2f6fA6BBEA546399c817571f48bd1182870D"
+      address: "0x1892b2bE1BA9d91360777E46748a39Fd5Bd4822C"
       abi: Parent
       startBlock: 29004700
     mapping:
@@ -91,7 +91,7 @@ dataSources:
     name: Child1
     network: mumbai
     source:
-      address: "0x436e181313c762D352e5a1EbC36C8D3B627B9d0F"
+      address: "0x124ca2A83819819bEc250A7bED9D3b847FB2936B"
       abi: Child1
       startBlock: 29004700
     mapping:
@@ -126,7 +126,7 @@ dataSources:
     name: Child2
     network: mumbai
     source:
-      address: "0x5aD881C218554Bb03d138fa8cda2383141f4abb0"
+      address: "0x051d1A22E58b62104aD112Da585EcFafD5c48D14"
       abi: Child2
       startBlock: 29004700
     mapping:
