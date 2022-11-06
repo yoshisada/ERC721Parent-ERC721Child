@@ -19,6 +19,10 @@ export const useBackendAPI = () => {
   }
 
   const fetchParentChild = async (parent: number) => {
+    console.log(parent)
+    if (parent == null){
+      return null
+    }
     const { data } = await client.query({
       query: gql`
         query {
