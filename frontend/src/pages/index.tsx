@@ -7,6 +7,7 @@ import { Box, Divider } from '@mui/material' ;
 import GoalsGrid from '../components/GoalsGrid';
 import logo from '../assets/ssmy.png';
 import ethLogo from '../assets/eth-logo.png';
+import unrevealed from '../assets/unrevealed.png'
 import { useBackendAPI } from '../api/backend-interface'
 
 export default function Home() {
@@ -37,6 +38,8 @@ export default function Home() {
           Focused on bringing more to NFTs
         </h3>
 
+        <Image src={unrevealed} alt="unrevealed" className={styles.backImg}/>
+
       </main>
 
 
@@ -63,15 +66,6 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        {/* <a
-          href="https://ssmytech.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className={styles.logo}>
-            <Image src={logo} alt="SSMY Logo" width={96}/>
-          </span>
-        </a> */}
         
         <h1 className={styles.credit}>A Product of ETHGlobalSF 2022 
           <Image src={ethLogo} alt="Ethereum" width={40}/>

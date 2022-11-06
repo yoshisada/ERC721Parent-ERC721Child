@@ -10,7 +10,10 @@ const useStyles = makeStyles((theme) => ({
 
     buttonContainer: {
         width: "100%",
-        padding: "0 0 20px 20px"
+        padding: "0 0 20px 20px",
+        display: "flex",
+        flex: "1 0 100%",
+        justifyContent: "left"
     },
 
     mintButton: {
@@ -19,8 +22,10 @@ const useStyles = makeStyles((theme) => ({
         fontSize: "max(1.5rem, 2vw)",
         fontFamily: "AKRegular",
         padding: "20px",
+        margin: "20px 30px 0 10px",
         backgroundColor: "#FFCC30",
         borderRadius: "75px",
+        lineHeight: "1",
         color: "white",
         "&:hover": {
             backgroundColor: 'transparent',
@@ -65,8 +70,6 @@ function MintModule() {
                 <Box>
                     <Box className={styles.buttonContainer}>
                         <Button className={styles.mintButton} onClick={mintChild1}>mint child1</Button>
-                    </Box>
-                    <Box className={styles.buttonContainer}>
                         <Button className={styles.mintButton} onClick={mintChild2}>mint child2</Button>
                     </Box>
                 </Box>
@@ -77,7 +80,6 @@ function MintModule() {
             <Box>
                 <Box className={styles.buttonContainer}>
                     <Box className={styles.subText}>Please connect your wallet to mint</Box>
-                    <Button className={styles.mintButton} disabled={true}>mint</Button>
                 </Box>
             </Box>
         )

@@ -1,28 +1,40 @@
+import { useState } from 'react';
 import Image from 'next/image';
-import { AppBar, Container, Toolbar, Box, Button} from '@mui/material';
+import { AppBar, List, ListItem, Toolbar, Box, Button, Drawer, IconButton} from '@mui/material';
 import logo from '../assets/ssmy.png';
 import mmLogo from '../assets/mm.png';
 import { makeStyles } from "@mui/styles";
 import { useMetaMaskInterface } from '../api/metamask-interface';
 import MetaMaskButton from './MetaMaskButton';
+import { Menu, Close } from '@mui/icons-material';
 
 const useStyles = makeStyles(() => ({
   logo: {
-    margin: "0 0 0 20px"
+    margin: "0 0 0 20px",
+    ['@media (max-width:960px)']: { // eslint-disable-line no-useless-computed-key
+      display: 'none',
+    }
   },
   appbar: {
+    width: "100%",
     backgroundColor: "#161616",
     borderBottom: "medium solid #2B2A2A",
   },
+
+  toolbar: {
+    width: "100%",
+  },
+
+  icon: {
+    float: "right"
+  },
+
   buttonContainer: {
     width: "100%",
     margin: "10px",
     display: "flex",
     justifyContent: "end",
     alignItems: "center",
-    ['@media (max-width:960px)']: { // eslint-disable-line no-useless-computed-key
-      display: 'none',
-    }
     // [theme.breakpoints.down("sm")]: {
     //     display: "none",
     //   },
@@ -30,10 +42,8 @@ const useStyles = makeStyles(() => ({
 
   ercContainer: {
     height: "60px",
-    padding: "5px 0px 5px 50px",
-    ['@media (max-width:960px)']: { // eslint-disable-line no-useless-computed-key
-      display: 'none',
-    }
+    width: "300px",
+    padding: "5px 0px 5px 30px",
     // [theme.breakpoints.down("sm")]: {
     //     display: "none",
     //   },
@@ -48,7 +58,22 @@ const useStyles = makeStyles(() => ({
     cursor: "pointer",
     "&:hover": {
         textDecoration: "underline"
+    },
+    ['@media (max-width:960px)']: { // eslint-disable-line no-useless-computed-key
+      display: 'none',
     }
+  },
+
+  navButtonPersist: {
+    backgroundColor: "transparent",
+    color: "white",
+    fontSize: "1.1em",
+    fontFamily: "AKRegular",
+    margin: "10px",
+    cursor: "pointer",
+    "&:hover": {
+        textDecoration: "underline"
+    },
   },
 
   ercButton: {
@@ -73,7 +98,7 @@ function NavBar() {
 
     return(
         <AppBar className={styles.appbar} elevation={0}>
-            <Toolbar disableGutters>
+            <Toolbar disableGutters className={styles.toolbar}>
 
                 <a href="https://ssmytech.com" target="_blank" rel="noopener noreferrer">
                     <Image className={styles.logo} src={logo} alt="logo" height={70}/>
@@ -91,7 +116,7 @@ function NavBar() {
 
                 <Box className={styles.buttonContainer}>
                     
-                    <Button className={styles.navButton} href="./mint">
+                    <Button className={styles.navButtonPersist} href="./mint">
                         Mint
                     </Button>
 
@@ -104,8 +129,8 @@ function NavBar() {
                     </Button>
 
                     <MetaMaskButton/>
-            
                 </Box>
+
             </Toolbar>
 
         </AppBar>
