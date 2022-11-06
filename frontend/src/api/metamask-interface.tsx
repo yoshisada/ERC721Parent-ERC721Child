@@ -1,4 +1,5 @@
 import { storefrontABI } from './abis/storefront.abi'
+import { useBackendAPI } from './backend-interface'
 import { useMetaMask } from 'metamask-react'
 import { config } from './config'
 import { useState } from 'react'
@@ -6,6 +7,7 @@ import { ethers } from 'ethers'
 
 export const useMetaMaskInterface = () => {
     const { ethereum, status: metaMaskStatus, account: metaMaskAccount, chainId, connect, switchChain, addChain } = useMetaMask()
+    const { fetchParentNFT, fetchNFTOwners } = useBackendAPI();
 
     const [metaMaskFocus, setMetaMaskFocus] = useState(false)
     const [metaMaskError, setMetaMaskError] = useState('')
@@ -17,6 +19,17 @@ export const useMetaMaskInterface = () => {
     const parseError = (err: any) => {
         console.log(err?.code)
         return err?.code === 'INSUFFICIENT_FUNDS' || err?.code === -32000
+    }
+
+    const getParentToken = async (address : any) => {
+        const data = await fetchParentNFT();
+        const parentMinteds = data.parentMinteds;
+        const target = parentMinteds.filter((parent:any)=> parent.owner === address);
+        if (target.length) {
+            return target[0].childId;
+        } else {
+            return '';
+        }
     }
 
     const checkChain = async () => {
@@ -96,15 +109,22 @@ export const useMetaMaskInterface = () => {
         }
     }
 
-    const mintChild1 = async (tokenId : string) => {
+    const mintChild1 = async () => {
         if (metaMaskStatus === "connected") {
             setMetaMaskFocus(true);
             await checkChain();
             const metaMaskSigner = await getMetaMaskSigner();
             const storefrontContract = new ethers.Contract(config.addresses.storefrontAddress, storefrontABI, metaMaskSigner)
-            
+            const parentTokenId = await getParentToken(metaMaskAccount);
+
+            if (parentTokenId === -1) {
+                setMetaMaskError('Given address does not have a Parent token.');
+                setMetaMaskFocus(false);
+                return
+            }
+
             try {
-                const mintTx = await storefrontContract.mintChild1()
+                const mintTx = await storefrontContract.mintChild1(parentTokenId)
                 setMetaMaskFocus(false);
                 setPendingId(mintTx.hash);
                 await mintTx.wait();
@@ -126,15 +146,22 @@ export const useMetaMaskInterface = () => {
         }
     }
 
-    const mintChild2 = async (tokenId : string) => {
+    const mintChild2 = async () => {
         if (metaMaskStatus === "connected") {
             setMetaMaskFocus(true);
             await checkChain();
             const metaMaskSigner = await getMetaMaskSigner();
             const storefrontContract = new ethers.Contract(config.addresses.storefrontAddress, storefrontABI, metaMaskSigner)
+            const parentTokenId = await getParentToken(metaMaskAccount);
+
+            if (parentTokenId === -1) {
+                setMetaMaskError('Given address does not have a Parent token.');
+                setMetaMaskFocus(false);
+                return
+            }
             
             try {
-                const mintTx = await storefrontContract.mintChild2()
+                const mintTx = await storefrontContract.mintChild2(parentTokenId)
                 setMetaMaskFocus(false);
                 setPendingId(mintTx.hash);
                 await mintTx.wait();
@@ -168,7 +195,10 @@ export const useMetaMaskInterface = () => {
         setResyncData,
         checkChain,
         connectMetaMask,
-        mintParent
+        getParentToken,
+        mintParent,
+        mintChild1,
+        mintChild2
 
     }
 
