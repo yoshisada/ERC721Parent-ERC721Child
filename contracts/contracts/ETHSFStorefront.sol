@@ -96,7 +96,7 @@ contract ETHSFStorefront is AccessControl {
         to.transfer(amount);
     }
 
-    function mintParent() public payable {
+    function mintParent() public payable returns (uint256){
         require(!_paused, "Storefront paused");
         require(msg.value == price, "Wrong price");
         require(counterParent < maxParentCount, "MAX COLLECTION EXCEEDED");
@@ -110,9 +110,10 @@ contract ETHSFStorefront is AccessControl {
         _holder[msg.sender] = true;
         _lockParentURI[counterParent] = false;
         counterParent++;
+        return counterParent-1;
     }
 
-    function mintChild1(uint256 parentId) public payable {
+    function mintChild1(uint256 parentId) public payable returns (uint256){
         require(!_paused, "Storefront paused");
         require(msg.value == price, "Wrong price");
         //require(anchaindrm1155Contract.getAvailablePrints(tokenId) > 0, "Artwork sold out");
@@ -123,9 +124,10 @@ contract ETHSFStorefront is AccessControl {
         emit ChildMinted(counterChild1, parentId, price, msg.sender, address(child1));
         _lockChild1URI[counterChild1] = false;
         counterChild1++;
+        return counterChild1 -1;
     }
 
-    function mintChild2(uint256 parentId) public payable {
+    function mintChild2(uint256 parentId) public payable returns (uint256){
         require(!_paused, "Storefront paused");
         require(msg.value == price, "Wrong price");
         //require(anchaindrm1155Contract.getAvailablePrints(tokenId) > 0, "Artwork sold out");
@@ -136,6 +138,7 @@ contract ETHSFStorefront is AccessControl {
         emit ChildMinted(counterChild2, parentId, price, msg.sender, address(child2));
         _lockChild1URI[counterChild2] = false;
         counterChild2++;
+        return counterChild2 -1;
     }
 
     function updateParentURI(uint256 id, string memory uri) public onlyRole(CURATOR_ROLE){

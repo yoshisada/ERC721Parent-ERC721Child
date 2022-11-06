@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: Storefront
-    network: mumbai
+    network: matic
     source:
-      address: "0xc24c5028663850bfDdae07e246C731D5c4Ae857A"
+      address: "0x3f080909dB05218F42BfAceC139DfE3875a19de6"
       abi: Storefront
-      startBlock: 29004700
+      startBlock: 35278861
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -45,11 +45,11 @@ dataSources:
       file: Storefront/Storefront.wasm
   - kind: ethereum
     name: Parent
-    network: mumbai
+    network: matic
     source:
-      address: "0x1892b2bE1BA9d91360777E46748a39Fd5Bd4822C"
+      address: "0x5667F7CD2E87c028c99e5069b35709d02BdE543b"
       abi: Parent
-      startBlock: 29004700
+      startBlock: 35278861
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -89,11 +89,11 @@ dataSources:
       file: Parent/Parent.wasm
   - kind: ethereum
     name: Child1
-    network: mumbai
+    network: matic
     source:
-      address: "0x124ca2A83819819bEc250A7bED9D3b847FB2936B"
+      address: "0x5667F7CD2E87c028c99e5069b35709d02BdE543b"
       abi: Child1
-      startBlock: 29004700
+      startBlock: 35278861
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
@@ -124,11 +124,11 @@ dataSources:
       file: Child1/Child1.wasm
   - kind: ethereum
     name: Child2
-    network: mumbai
+    network: matic
     source:
-      address: "0x051d1A22E58b62104aD112Da585EcFafD5c48D14"
+      address: "0x226649bdD376d895323ca4F6672FaA89aB43DD24"
       abi: Child2
-      startBlock: 29004700
+      startBlock: 35278861
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6

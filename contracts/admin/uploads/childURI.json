@@ -1,0 +1,8 @@
+{
+    "name": "Blob Fam Child Collection",
+    "description": "Blob Fam Child Token is a generative art token implementing ERC-721P/C, an interface that creates a Parent-to-Child contract relationship that enables an associated tokens to travel with its parent",
+    "image": "ipfs.io/ipfs/QmbuDFCjZVTqQw8fuijP58ZTyRnNXMXy7eD6ePzoGWe2rq",
+    "external_link": "nfts.ssmytech.com",
+    "seller_fee_basis_points": 1000, # Indicates a 1% seller fee.
+    "fee_recipient": "0x150ce1073A5F2Fc1659e52266250eE39473A9344" # Where seller fees will be paid to.
+  }

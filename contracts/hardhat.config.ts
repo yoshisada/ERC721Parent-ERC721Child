@@ -43,6 +43,10 @@ module.exports = {
     mumbai: {
       url: process.env.MUMBAI_RPC,
       accounts: [process.env.WALLET_PRIVATE_KEY]
+    },
+    polygon: {
+      url: process.env.POLYGON_RPC,
+      accounts: [process.env.WALLET_PRIVATE_KEY]
     }
   },
   etherscan: {
