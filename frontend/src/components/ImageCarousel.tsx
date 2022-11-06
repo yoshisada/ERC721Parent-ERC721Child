@@ -39,7 +39,7 @@ function ImageCarousel() {
         <div className={styles.caroContainer}>
             <Carousel centerMode={false} axis={'horizontal'} interval={2000} showThumbs={false} dynamicHeight={false} infiniteLoop={true} stopOnHover={true} showStatus={false} showArrows={false} showIndicators={false} swipeable={true} emulateTouch={true} autoPlay={true}>
                 {images.map((img, ind) => (
-                    <div className={styles.imageContainer}>
+                    <div className={styles.imageContainer} key={ind}>
                         <Image src={img} alt={String(ind)} className={styles.caroImage}/>
                     </div>
                 ))}

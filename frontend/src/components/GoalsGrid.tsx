@@ -48,7 +48,7 @@ function GoalsGrid() {
 
       <Box className={styles.triplegriditem}>
         <h1 className={styles.itemTitle}>Expandable Ecosystem</h1>
-        <p className={styles.itemDesc} >After an NFT's mints its genesis collection founders are able to deploy child collections directly tied to the genesis mint. A collection within a collection. This gives the ability to manage and maintain associated tokens within one parent token.</p>
+        <p className={styles.itemDesc} >After an NFT&apos;s mints its genesis collection founders are able to deploy child collections directly tied to the genesis mint. A collection within a collection. This gives the ability to manage and maintain associated tokens within one parent token.</p>
       </Box>
 
       <Box className={styles.triplegriditem}>

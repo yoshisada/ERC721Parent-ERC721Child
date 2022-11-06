@@ -53,8 +53,8 @@ function CollapseMenu() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography className={styles.accordDetails}>
-                        Within the context of NFT games, a player accumulates items and rewards and can store them within one 'backpack' token. That player could then sell the entire backpack easily, transferring the backpack and thus all of the items to a buyer.
-                        To trade individual items, the two parent 'backpack' tokens could come together to create an agreement to exchange specific child tokens.
+                        Within the context of NFT games, a player accumulates items and rewards and can store them within one &apos;backpack&apos; token. That player could then sell the entire backpack easily, transferring the backpack and thus all of the items to a buyer.
+                        To trade individual items, the two parent &apos;backpack&apos; tokens could come together to create an agreement to exchange specific child tokens.
                     </Typography>
                 </AccordionDetails>
             </Accordion>

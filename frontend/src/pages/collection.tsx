@@ -119,7 +119,7 @@ export default function Mint() {
         <title>Mint ERC721P&C</title>
         <meta name="description" content="" />
         <link rel="icon" href="/favicon.ico" />
-        <script src="https://unpkg.com/embeddable-nfts/dist/nft-card.min.js"></script>
+        
       </Head>
     
       <main className={styles.main}>

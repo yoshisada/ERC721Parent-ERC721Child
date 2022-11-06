@@ -15,6 +15,7 @@ export const useMetaMaskInterface = () => {
     switchChain,
     addChain,
   } = useMetaMask()
+  //@ts-ignore
   const { fetchParentNFT, fetchNFTOwners } = useBackendAPI()
 
   const [metaMaskFocus, setMetaMaskFocus] = useState(false)
@@ -48,6 +49,7 @@ export const useMetaMaskInterface = () => {
         await switchChain(cid)
       } catch (error) {
         if ((error as any).code === 4902) {
+            //@ts-ignore
           await addChain(config.contractParams)
         } else {
           console.error(

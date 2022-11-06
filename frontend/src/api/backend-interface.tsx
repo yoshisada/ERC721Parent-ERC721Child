@@ -64,6 +64,7 @@ export const useBackendAPI = () => {
 
     for(let i = 0; i < data.parentMinteds.length; i++){
       if(data.parentMinteds[i].childId == parent ){
+        //@ts-ignore
         relation.parent = parent
         relation.owner = data.parentMinteds[i].owner
       }
@@ -75,9 +76,12 @@ export const useBackendAPI = () => {
 
     for(let i = 0; i < data.childMinteds.length; i++){
       if(data.childMinteds[i].parentId == parent ){
+        //@ts-ignore
         if (relation.children[data.childMinteds[i].contractAddress] != null){
+          //@ts-ignore
           relation.children[data.childMinteds[i].contractAddress].push({id:data.childMinteds[i].childId, uri: null})
         }else{
+          //@ts-ignore
           relation.children[data.childMinteds[i].contractAddress]=[{id:data.childMinteds[i].childId, uri: null}]
         }
       }
@@ -97,11 +101,15 @@ export const useBackendAPI = () => {
           relation.parentUri = data.uriupdateds[i].uri
         }
       }
+      //@ts-ignore
       if(relation.children[data.uriupdateds[i].contractAddress] == null){
         continue
       }
+      //@ts-ignore
       for(let j = 0; j < relation.children[data.uriupdateds[i].contractAddress].length; j++){
+        //@ts-ignore
         if(relation.children[data.uriupdateds[i].contractAddress][j].id == data.uriupdateds[i].nftId){
+          //@ts-ignore
           relation.children[data.uriupdateds[i].contractAddress][j].uri = data.uriupdateds[i].uri
         }
       }
