@@ -2,7 +2,8 @@
 // OpenZeppelin Contracts (last updated v4.7.0) (token/ERC721/ERC721.sol)
 
 pragma solidity ^0.8.0;
-import "./IERC721C.sol";
+import "../ERC721C/IERC721C.sol";
+import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol";
@@ -26,6 +27,23 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
         uint256 tokenId;
         bool deleted;
     }
+
+    event ChildAdded (
+    	address childContract,
+    	uint256 childId,
+        uint256 parentId
+    );
+
+    event ChildTransfer (
+    	address childContract,
+    	uint256 childId,
+        address newHolder
+    );
+
+    event ChildBurned (
+    	address childContract,
+    	uint256 childId
+    );
 
     // Token name
     string private _name;
@@ -74,7 +92,8 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
         _childContracts[childContract] = true;
     }
 
-    function addChildToken(uint256 tokenIdChild, uint256 tokenIdParent, address to) public{//REMOVE https://ethereum.stackexchange.com/questions/1891/whats-the-difference-between-msg-sender-and-tx-origin
+    //add child contract address later
+    function addChildToken(uint256 tokenIdChild, uint256 tokenIdParent, address to) public returns(uint256){//REMOVE https://ethereum.stackexchange.com/questions/1891/whats-the-difference-between-msg-sender-and-tx-origin
         //check if caller is a valid child contract
         require(_childContracts[msg.sender], "Caller is not a valid child contract");
         //check to see if function is being called from a contract
@@ -82,7 +101,9 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
         require(ERC721P.ownerOf(tokenIdParent) == to, "ERC721P: To address does not own this parent token");
         
         Child memory temp = Child(IERC721C(msg.sender), tokenIdChild, false);
-        return _childTokens[tokenIdParent].push(temp); //this will return length of array
+        _childTokens[tokenIdParent].push(temp); //this will return length of array
+        emit ChildAdded(msg.sender, tokenIdChild, tokenIdParent);
+        return _childTokens[tokenIdParent].length;
         // might run into issues if a single child element is burned, how do we remove it while keeping index?
         // maybe fill with zero address if it is deleted
 
@@ -340,7 +361,7 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
             // The ERC fails to describe this case.
             _balances[to] += 1;
         }
-
+        
         _owners[tokenId] = to;
 
         emit Transfer(address(0), to, tokenId);
@@ -380,6 +401,7 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
         for(uint i = 0; i <length; i++){
             if(!_childTokens[tokenId][i].deleted){
                 _childTokens[tokenId][i].childContract.burn(_childTokens[tokenId][i].tokenId);
+                emit ChildBurned(address(_childTokens[tokenId][i].childContract), i);
             }
         }
         delete _childTokens[tokenId];
@@ -431,6 +453,7 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
         for(uint i = 0; i <length; i++){
             if(!_childTokens[tokenId][i].deleted){
                 _childTokens[tokenId][i].childContract.transferFrom(from, to, _childTokens[tokenId][i].tokenId);
+                emit ChildTransfer(address(_childTokens[tokenId][i].childContract), i, to);
             }
         }
 

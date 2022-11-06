@@ -21,23 +21,6 @@ const useStyles = makeStyles((theme) => ({
         display: "none",
       },
   },
-  navButton: {
-    backgroundColor: "transparent",
-    color: "white",
-    fontSize: "1.1em",
-    fontFamily: "AKRegular",
-    margin: "10px",
-    cursor: "pointer"
-  },
-  ercButton: {
-    backgroundColor: "transparent",
-    color: "white",
-    fontSize: "1em",
-    padding: "0",
-    marginTop: "5px",
-    height: "15px",
-    alignItems: "center"
-  },
 
   ercContainer: {
     height: "60px",
@@ -46,6 +29,31 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
         display: "none",
       },
+  },
+
+  navButton: {
+    backgroundColor: "transparent",
+    color: "white",
+    fontSize: "1.1em",
+    fontFamily: "AKRegular",
+    margin: "10px",
+    cursor: "pointer",
+    "&:hover": {
+        textDecoration: "underline"
+    }
+  },
+
+  ercButton: {
+    backgroundColor: "transparent",
+    color: "white",
+    fontSize: "1em",
+    padding: "0",
+    marginTop: "5px",
+    height: "15px",
+    alignItems: "center",
+    "&:hover a": {
+        textDecoration: "underline"
+    }
   },
 }));
 
@@ -56,16 +64,19 @@ function NavBar() {
     return(
         <AppBar className={styles.appbar} elevation={0}>
             <Toolbar disableGutters>
-                <Image className={styles.logo} src={logo} alt="logo" height={60}/>
+
+                <a href="https://ssmytech.com" target="_blank" rel="noopener noreferrer">
+                    <Image className={styles.logo} src={logo} alt="logo" height={60}/>
+                </a>
 
                 <Box className={styles.ercContainer}>
 
                     <Button className={styles.ercButton}>
-                    👨 ERC721 Parent
+                    👨 <a>ERC721 Parent</a>
                     </Button>
 
                     <Button className={styles.ercButton}>
-                    🧒 ERC721 Child
+                    🧒 <a>ERC721 Child</a>
                     </Button>
                 </Box>
 
