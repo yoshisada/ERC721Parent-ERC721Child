@@ -19,7 +19,6 @@ export default function Home() {
 
       <NavBar/>
       <main className={styles.main}>
-        <Box className={styles.divide}></Box>
         <h1 className={styles.title}>
           <a>ERC721P & ERC721C</a>
         </h1>
@@ -40,7 +39,7 @@ export default function Home() {
           <a>Goals</a>
         </h1>
 
-        <h2 className={styles.description}>
+        <h2 className={styles.subtitle}>
           Expand your NFT Ecosystem Post Launch
         </h2>
 

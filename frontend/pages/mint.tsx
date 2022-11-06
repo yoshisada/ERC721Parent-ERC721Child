@@ -15,16 +15,15 @@ export default function Mint() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
+            <main className={styles.main}>
             <NavBar />
-
-            <main className={homeStyles.main}>
-                <Box className={homeStyles.divide}></Box>
                 <Box className={styles.mintContainer}>
-                    <h1 className={`${styles.mintTitle}`}>
+                    <Box className={`${styles.mintTitle}`}>
                         <a>Mint</a> your NFT.
-                    </h1>
+                    </Box>
 
                     <ImageCarousel/>
+
                 </Box>
             </main>
 
