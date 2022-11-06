@@ -320,7 +320,7 @@ function getDelayFactor(address) {
     return parseInt(delayNibble, 16);
 }
 
-function getCurve(frame, address, extraSeed=null) {
+function getCurve(frame, address, extraSeed, doCircles) {
 
   let curveFactor = getCurveFactor(address);
   let speedFactor = getSpeedFactor(address);
@@ -345,8 +345,13 @@ function getCurve(frame, address, extraSeed=null) {
 	const colors = series(colorArr);
 	let time = 0; 
 
+  // Extra background stuff
   if (extraSeed) {
-    drawSquares(stageW, stageH, extraSeed);
+    if (doCircles) {
+      drawCircles(extraSeed);
+    } else {
+      drawSquares(stageW, stageH, extraSeed);
+    }
   }
 
 	var g = new Generator({
@@ -389,12 +394,17 @@ function addLogo() {
 		.sca(.3).alp(.7).hov(1).expand(10).pos(30,36,LEFT,BOTTOM);
 }
 
-function pickColor(x) {
+function pickColor(x, includeWhite) {
   // rng produces float between 0 and 1, convert to useful integer
   x *= 100;
   x = parseInt(x.toString());
 
-  let colors = ["#000000", "#575757", "#ad2323", "#2a4bd7", "#1d6914", "#814a19", "#8126c0", "#a0a0a0", "#81c57a", "#9dafff", "#29d0d0", "#ff9233", "#ffee33", "#e9debb", "#ffcdf3", "#ffffff"];
+  let colors;
+  if (includeWhite) {
+    colors = ["#000000", "#575757", "#ad2323", "#2a4bd7", "#1d6914", "#814a19", "#8126c0", "#a0a0a0", "#81c57a", "#9dafff", "#29d0d0", "#ff9233", "#ffee33", "#e9debb", "#ffcdf3", "#ffffff"];
+  } else {
+    colors = ["#000000", "#575757", "#ad2323", "#2a4bd7", "#1d6914", "#814a19", "#8126c0", "#a0a0a0", "#81c57a", "#9dafff", "#29d0d0", "#ff9233", "#ffee33", "#e9debb", "#ffcdf3"];
+  }
   return colors[x % colors.length];
 }
 
@@ -419,7 +429,7 @@ function drawSquares(width, height, seed) {
   for (let i=0; i < numSquares/2; i++) {
     for (let j=0; j < numSquares/2; j++) {
 
-      let curColor = pickColor(rng());
+      let curColor = pickColor(rng(), true);
 
       addRect(curColor, i, j, 0, 0);
       addRect(curColor, i, j, 1, 0);
@@ -427,21 +437,62 @@ function drawSquares(width, height, seed) {
       addRect(curColor, i, j, 1, 1);
     }
   }
+}
 
+
+function drawCircles(seed) {
+  const rng = new Math.seedrandom(seed);
+
+  function randInt(low, high) {
+    let f = parseInt(rng() * 1000);
+    let span = high - low;
+    return low + (f % span)
+  }
+
+  let numColors = randInt(4,7);
+  let colorArr = Array();
+  for (let i=0; i < numColors; i++) {
+    colorArr.push(pickColor(rng(), true));
+  }
+
+  let consecutiveColor = randInt(3, 7);
+  const colors = series(colorArr).every(consecutiveColor);
+
+  // we will rotate by 5 degrees so only run the generator 360/5 for one full circle
+  var g = new Generator({
+    strokeColor:colors,
+    strokeWidth:3,
+    stamp:gen,
+    maxCount:360/5
+    //maxCount:10
+  });
+
+  let sizes = [4, 8, 16, 32];
+  let sizeOne = sizes[randInt(0, 4)];
+  let sizeTwo = sizes[randInt(0, 4)];
+  let sizeThree = sizes[randInt(0, 4)];
+
+  function gen() {
+    g.push() // remember that we are at the center
+      .circle(240,0, 150) // x,y,radius
+      .circle(-20,0, sizeOne)   // 200-20 in x (position relative from last spot)
+      .circle(50,0,  sizeTwo)   // 200-40+50 in x
+      .circle(60,0,  sizeThree) // 200-40+50+60 in x
+     .pop().rotate(5) // return to the center and rotate
+  }
 }
 
 // main export
 // expects an address string of length 42, starting with "0x"
 // optional "extra" string argument for mixing
 // calls callback when finished
-export function getBlob(address, callback, extra) {
+export function getBlob(address, extra, doCircles, callback) {
 
     let frame = new Frame(FIT, 800, 800, null, null, ready);
 
     function ready() {
-        getCurve(frame, address, extra);
+        getCurve(frame, address, extra, doCircles);
 
-        //console.log(dataURL);
         callback();
     }
 }
@@ -452,14 +503,23 @@ export function getBlob(address, callback, extra) {
 
 // MAIN
 
-    let address = 'INSERT_ADDRESS_HERE';
-    if (address== 'INSERT' + '_ADDRESS_HERE') {
+    // Get key params from URL
+    var address = new URLSearchParams(window.location.search).get('addr')
+    if (address == null) {
       address = "0x0123456789abcdef0123456789abcdef01234567";
+      console.log(`WARNING: no address provided, using: ${address}`)
     }
 
-    let extra = 'INSERT_EXTRA_HERE';
-    if (extra == 'INSERT' + '_EXTRA_HERE') {
-      extra = null;
+    var extra = new URLSearchParams(window.location.search).get('extra')
+    if (extra != null) {
+      console.log(`extra provided: ${extra}`);
+    }
+
+    let doCircles = false;
+    var circles = new URLSearchParams(window.location.search).get('circles')
+    if (circles != null && circles != '0' && circles != 'false') {
+      doCircles = true;
+      console.log(`doCircles: ${doCircles}`);
     }
     
     function dataURItoBlob(dataURI) {
@@ -484,10 +544,8 @@ export function getBlob(address, callback, extra) {
         //bucket.upload(params, function (err, data) {});
     }
     
-    console.log(`address: ${address}`);
-    console.log(`extra: ${extra}`);
 
-    getBlob(address, finishCallback, extra);
+    getBlob(address, extra, doCircles, finishCallback);
   
   </script>
   
