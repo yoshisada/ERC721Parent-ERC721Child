@@ -120,11 +120,11 @@ function NavBar() {
                         Mint
                     </Button>
 
-                    <Button className={styles.navButton}>
+                    <Button className={styles.navButton} href="https://github.com/yoshisada/ERC721Parent-ERC721Child" target="_blank">
                         Documentation
                     </Button>
 
-                    <Button className={styles.navButton}>
+                    <Button className={styles.navButton} href="https://github.com/yoshisada/ERC721Parent-ERC721Child" target="_blank">
                         Source
                     </Button>
 
