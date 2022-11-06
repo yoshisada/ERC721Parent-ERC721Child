@@ -1,0 +1,13 @@
+{
+	"name": "Unrevealed Child NFT",
+	"description": "Unrevealed Child NFT!!",
+	"image": "https://ipfs.io/ipfs/QmPXKNvjyq8MUGZKQKQmxN8ydUp3d1jxDuPVCMM2RQLYAp",
+	"animation_url": "https://ipfs.io/ipfs/QmPXKNvjyq8MUGZKQKQmxN8ydUp3d1jxDuPVCMM2RQLYAp",
+	"attributes": [{
+		"trait_type": "Generated From",
+		"value": "0x000000"
+	}, {
+		"trait_type": "Created at",
+		"value": "ETH San Francisco"
+	}]
+}

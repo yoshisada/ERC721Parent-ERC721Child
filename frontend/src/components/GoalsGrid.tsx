@@ -8,13 +8,10 @@ const useStyles = makeStyles((theme) => ({
     triplegrid: {
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
-        marginTop: "80px",
+        marginTop: "50px",
         ['@media (max-width:960px)']: { // eslint-disable-line no-useless-computed-key
           gridTemplateColumns: "repeat(1, 1fr)",
         }
-        // [theme.breakpoints.down("sm")]: {
-        //     gridTemplateColumns: "repeat(1, 1fr)",
-        //   },
 
     },
 
@@ -23,9 +20,6 @@ const useStyles = makeStyles((theme) => ({
         ['@media (max-width:960px)']: { // eslint-disable-line no-useless-computed-key
           marginBottom: "30px"
         }
-        // [theme.breakpoints.down("sm")]: {
-        //     marginBottom: "30px"
-        //   },
     },
 
     itemTitle: {

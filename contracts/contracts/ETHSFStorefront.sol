@@ -99,13 +99,13 @@ contract ETHSFStorefront is AccessControl {
     function mintParent() public payable {
         require(!_paused, "Storefront paused");
         require(msg.value == price, "Wrong price");
-        require(counterParent > maxParentCount, "MAX COLLECTION EXCEEDED");
+        require(counterParent < maxParentCount, "MAX COLLECTION EXCEEDED");
         require(!_holder[msg.sender], "Parent NFT Already held");
         //require(anchaindrm1155Contract.getAvailablePrints(tokenId) > 0, "Artwork sold out");
         //check for max prints here
         //restrict one parent per address
 
-        parent.safeMint(msg.sender, counterParent, "abcdefg");
+        parent.safeMint(msg.sender, counterParent, "QmYb76ZWSXBiTC7CT8dai6U7Fyhn4QnamwNoGdcTe33WEW");
         emit ParentMinted(counterParent, price, msg.sender, address(parent));
         _holder[msg.sender] = true;
         _lockParentURI[counterParent] = false;
@@ -119,7 +119,7 @@ contract ETHSFStorefront is AccessControl {
         //check for max prints here
         //restrict one parent per address
 
-        child1.safeMint(msg.sender, counterChild1, parentId, "abcdefg");
+        child1.safeMint(msg.sender, counterChild1, parentId, "QmaNckuTMfdbG1eixReFmW8CddMCDK36VRSPWfahxA5Scf");
         emit ChildMinted(counterChild1, parentId, price, msg.sender, address(child1));
         _lockChild1URI[counterChild1] = false;
         counterChild1++;
@@ -132,7 +132,7 @@ contract ETHSFStorefront is AccessControl {
         //check for max prints here
         //restrict one parent per address
 
-        child2.safeMint(msg.sender, counterChild2, parentId, "abcdefg");
+        child2.safeMint(msg.sender, counterChild2, parentId, "QmaNckuTMfdbG1eixReFmW8CddMCDK36VRSPWfahxA5Scf");
         emit ChildMinted(counterChild2, parentId, price, msg.sender, address(child2));
         _lockChild1URI[counterChild2] = false;
         counterChild2++;

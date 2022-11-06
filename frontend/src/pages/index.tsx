@@ -7,8 +7,12 @@ import { Box, Divider } from '@mui/material' ;
 import GoalsGrid from '../components/GoalsGrid';
 import logo from '../assets/ssmy.png';
 import ethLogo from '../assets/eth-logo.png';
+import { useBackendAPI } from '../api/backend-interface'
 
 export default function Home() {
+  const { fetchParentNFT } = useBackendAPI()
+  const parentData = fetchParentNFT();
+  console.log(parentData)
   return (
     <div className={styles.container}>
       <Head>
