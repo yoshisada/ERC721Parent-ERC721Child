@@ -92,7 +92,6 @@ function NavBar() {
                 </a>
 
                 <Box className={styles.ercContainer}>
-
                     <Button className={styles.ercButton} href="/">
                     👨 ERC721 Parent
                     </Button>

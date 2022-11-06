@@ -47,60 +47,60 @@ function CollapseMenu() {
         <Box className={styles.accordContainer}>
             <Accordion className={`${styles.accord} ${styles.accordTop}`} elevation={0} square={true}>
                 <AccordionSummary
-                expandIcon={<ExpandMore htmlColor='white' fontSize='large' />}
+                    expandIcon={<ExpandMore htmlColor='white' fontSize='large' />}
                 >
-                <Typography className={styles.accordTitle}>3D PFP NFT Collection</Typography>
+                    <Typography className={styles.accordTitle}>3D PFP NFT Collection</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                <Typography className={styles.accordDetails}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    malesuada lacus ex, sit amet blandit leo lobortis eget.
-                </Typography>
+                    <Typography className={styles.accordDetails}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                    </Typography>
                 </AccordionDetails>
             </Accordion>
 
 
             <Accordion className={styles.accord} elevation={0} square={true}>
                 <AccordionSummary
-                expandIcon={<ExpandMore htmlColor='white' fontSize='large' />}
+                    expandIcon={<ExpandMore htmlColor='white' fontSize='large' />}
                 >
-                <Typography className={styles.accordTitle}>Social Record Keeping</Typography>
+                    <Typography className={styles.accordTitle}>Social Record Keeping</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                <Typography className={styles.accordDetails}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    malesuada lacus ex, sit amet blandit leo lobortis eget.
-                </Typography>
+                    <Typography className={styles.accordDetails}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                    </Typography>
                 </AccordionDetails>
             </Accordion>
 
 
             <Accordion className={styles.accord} elevation={0} square={true}>
                 <AccordionSummary
-                expandIcon={<ExpandMore htmlColor='white' fontSize='large' />}
+                    expandIcon={<ExpandMore htmlColor='white' fontSize='large' />}
                 >
-                <Typography className={styles.accordTitle}>Distribution of Next Generation Art</Typography>
+                    <Typography className={styles.accordTitle}>Distribution of Next Generation Art</Typography>
                 </AccordionSummary>
-                <AccordionDetails>
-                <Typography className={styles.accordDetails}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    malesuada lacus ex, sit amet blandit leo lobortis eget.
-                </Typography>
-                </AccordionDetails>
+                    <AccordionDetails>
+                    <Typography className={styles.accordDetails}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                    </Typography>
+                    </AccordionDetails>
             </Accordion>
 
 
             <Accordion className={styles.accord} elevation={0} square={true}>
                 <AccordionSummary
-                expandIcon={<ExpandMore htmlColor='white' fontSize='large' />}
+                    expandIcon={<ExpandMore htmlColor='white' fontSize='large' />}
                 >
-                <Typography className={styles.accordTitle}>Post Mint Content</Typography>
+                    <Typography className={styles.accordTitle}>Post Mint Content</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                <Typography className={styles.accordDetails}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                    malesuada lacus ex, sit amet blandit leo lobortis eget.
-                </Typography>
+                    <Typography className={styles.accordDetails}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                    </Typography>
                 </AccordionDetails>
             </Accordion>
 
