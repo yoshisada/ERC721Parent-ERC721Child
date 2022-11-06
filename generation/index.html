@@ -5,6 +5,11 @@
   <title>BLOBTEST</title>
   
   <script type=module src="generate.mjs"></script>
+  <!-- TODO require seedrandom on node side -->
+  <!--
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+  -->
+  <script src="./scripts/seedrandom.min.js"></script>
   <script type=module>
   
     import { getBlob } from './generate.mjs'
@@ -16,14 +21,18 @@
         "0x326c977e6efc84e512bb9c30f76e30c160ed06fb",
     ]
     
-    let addrIndex = 0;
+    let addrIndex = 1;
     let address = addressList[addrIndex];
     
     function printCallback(imageData) {
         console.log(`printCallback: ${imageData}`);
     }
     
-    getBlob(address, printCallback);
+    //getBlob(address, printCallback);
+    //getBlob(address, printCallback, "0x0000000000000000000000000000000000000000");
+    getBlob(address, printCallback, "0x0000000000000000000000000000000000000001");
+    //getBlob(address, printCallback, "0x0badc0feec0ldf00ddeadbeefcafe00001057107");
+    //getBlob(address, printCallback, "0x326c977e6efc84e512bb9c30f76e30c160ed06fb");
   
   </script>
   
