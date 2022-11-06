@@ -2,6 +2,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import { AppBar, Container, Toolbar, Box, Button} from '@material-ui/core';
 import logo from '../assets/ssmy.png';
+import mmLogo from '../assets/mm.png';
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "10px",
     display: "flex",
     justifyContent: "end",
+    alignItems: "center",
     [theme.breakpoints.down("sm")]: {
         display: "none",
       },
@@ -25,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
   ercContainer: {
     height: "60px",
     padding: "5px 0px 5px 80px",
-    cursor: "pointer",
     [theme.breakpoints.down("sm")]: {
         display: "none",
       },
@@ -47,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "transparent",
     color: "white",
     fontSize: "1em",
+    fontFamily: "AKRegular",
     padding: "0",
     marginTop: "5px",
     height: "15px",
@@ -55,6 +57,26 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: "underline"
     }
   },
+
+  mmButton: {
+    height: "50px",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    borderRadius: "55px",
+    color: "black",
+    padding: "0 20px 0 20px",
+    marginLeft: "10px",
+    fontFamily: "AKRegular",
+    "&:hover": {
+        backgroundColor: "transparent",
+        color: "white",
+        outline: "medium solid white"
+    }
+  },
+  mmImage: {
+    marginRight: "10px"
+  }
 }));
 
 function NavBar() {
@@ -66,7 +88,7 @@ function NavBar() {
             <Toolbar disableGutters>
 
                 <a href="https://ssmytech.com" target="_blank" rel="noopener noreferrer">
-                    <Image className={styles.logo} src={logo} alt="logo" height={60}/>
+                    <Image className={styles.logo} src={logo} alt="logo" height={70}/>
                 </a>
 
                 <Box className={styles.ercContainer}>
@@ -82,7 +104,7 @@ function NavBar() {
 
                 <Box className={styles.buttonContainer}>
                     
-                    <Button className={styles.navButton}>
+                    <Button className={styles.navButton} href="./mint">
                         Mint
                     </Button>
 
@@ -94,8 +116,9 @@ function NavBar() {
                         Source
                     </Button>
 
-                    <Button className={styles.navButton}>
-                        MetaMask
+                    <Button className={styles.mmButton}>
+                        <Image src={mmLogo} alt="MetaMask" width={30} className={styles.mmImage}/>
+                        Connect
                     </Button>
             
                 </Box>
