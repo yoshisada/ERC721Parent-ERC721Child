@@ -27,7 +27,7 @@ export const useMetaMaskInterface = () => {
         }
     }
 
-    const connectWallet = async () => {
+    const connectMetaMask= async () => {
         if (metaMaskStatus === "notConnected") {
             setMetaMaskFocus(true);
             try {
@@ -52,6 +52,16 @@ export const useMetaMaskInterface = () => {
         } else {
             throw Error("MetaMask not connected.")
         }
+    }
+
+    return {
+        ethers,
+        metaMaskStatus,
+        metaMaskAccount,
+        metaMaskFocus,
+        metaMaskError,
+        checkChain,
+        connectMetaMask,
     }
 
 }

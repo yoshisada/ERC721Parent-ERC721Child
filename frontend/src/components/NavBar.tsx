@@ -4,6 +4,7 @@ import { AppBar, Container, Toolbar, Box, Button} from '@material-ui/core';
 import logo from '../assets/ssmy.png';
 import mmLogo from '../assets/mm.png';
 import { makeStyles } from "@material-ui/core/styles";
+import { useMetaMaskInterface } from '../api/metamask-interface';
 
 const useStyles = makeStyles((theme) => ({
   logo: {
