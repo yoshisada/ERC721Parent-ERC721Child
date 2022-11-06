@@ -95,7 +95,7 @@ contract ETHSFStorefront is AccessControl {
     }
 
     function mintParent() public payable {
-        require(_paused, "Storefront paused");
+        require(!_paused, "Storefront paused");
         require(msg.value == price, "Wrong price");
         require(counterParent > maxParentCount, "MAX COLLECTION EXCEEDED");
         require(!_holder[msg.sender], "Parent NFT Already held");
@@ -111,7 +111,7 @@ contract ETHSFStorefront is AccessControl {
     }
 
     function mintChild1(uint256 parentId) public payable {
-        require(_paused, "Storefront paused");
+        require(!_paused, "Storefront paused");
         require(msg.value == price, "Wrong price");
         //require(anchaindrm1155Contract.getAvailablePrints(tokenId) > 0, "Artwork sold out");
         //check for max prints here
@@ -124,7 +124,7 @@ contract ETHSFStorefront is AccessControl {
     }
 
     function mintChild2(uint256 parentId) public payable {
-        require(_paused, "Storefront paused");
+        require(!_paused, "Storefront paused");
         require(msg.value == price, "Wrong price");
         //require(anchaindrm1155Contract.getAvailablePrints(tokenId) > 0, "Artwork sold out");
         //check for max prints here

@@ -17,12 +17,12 @@ async function main() {
   //NFT deployment
   const ParentERC721P = await ethers.getContractFactory("ParentERC721P");
   const parent = await ParentERC721P.deploy();
-  await parent.wait();
+  //await parent.wait();
   const ChildERC721C = await ethers.getContractFactory("ChildERC721C");
   const child1 = await ChildERC721C.deploy(parent.address);
   const child2 = await ChildERC721C.deploy(parent.address);
-  await child1.wait();
-  await child2.wait();
+  //await child1.wait();
+  //await child2.wait();
   await parent.addChildContract(child1.address);
   await parent.addChildContract(child2.address);
   deployedRecorder.recordContractAddress("parent", parent.address);
@@ -44,11 +44,11 @@ async function main() {
   console.log("Parent granted Storefront Minter role");
 
   const minter1 = await child1.MINTER_ROLE();
-  await parent.grantRole(child1, ethsfstorefront.address);
+  await child1.grantRole(minter1, ethsfstorefront.address);
   console.log("Child 1 granted Storefront Minter role");
 
   const minter2 = await child2.MINTER_ROLE();
-  await parent.grantRole(child2, ethsfstorefront.address);
+  await child2.grantRole(minter2, ethsfstorefront.address);
   console.log("Child 2 granted Storefront Minter role");
 
   //Grant deployer storefront curator role
