@@ -4,6 +4,7 @@ const { expect } = require('chai')
 describe('ERC721P and ERC721C', function () {
   let ERC721C
   let ERC721P
+  let Storefront
   let child
   let Thisabled1155Storefront
   let parent
@@ -90,6 +91,7 @@ describe('ERC721P and ERC721C', function () {
     //Get ContractFactory and signers
     ERC721P = await ethers.getContractFactory('ParentERC721P')
     ERC721C = await ethers.getContractFactory('Child1ERC721C')
+    Storefront = await ethers.getContractFactory('ETHSFStorefront')
     ;[owner, addr1, addr2] = await ethers.getSigners()
 
     //Deploy NFT contract
@@ -593,4 +595,12 @@ describe('ERC721P and ERC721C', function () {
       } catch (error) {}
     })
   })
+
+  // describe('Test Storefront Contract', function () {
+  //   it('Mint 1 Parent from storefront contract', async function () {
+  //     let child1 = await ERC721C.deploy(parent.address)
+  //     let storefront = await Storefront.deploy(parent.address, child.address, child1.address)
+
+  //   })
+  // })
 })
