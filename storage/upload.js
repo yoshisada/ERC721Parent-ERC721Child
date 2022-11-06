@@ -1,11 +1,10 @@
 
-import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
-dotenv.config()
+require("dotenv").config();
 
 // Import the NFTStorage class and File constructor from the 'nft.storage' package
-import { NFTStorage, File } from 'nft.storage'
+const { NFTStorage } = require('nft.storage');
 
-import { Blob } from 'buffer';
+const { Blob } = require('buffer');
 
 
 // NFT.Storage API key
@@ -72,7 +71,7 @@ function getJsonBlob(address, url, nonce, childType) {
   * @param {string} [nonce] an optional string to seed the background data
   * @param {int} [childType] 1 for square background, 2 for spirals
   */
-export async function storeMetadata(address, nonce=null, childType=null) {
+async function storeMetadata(address, nonce=null, childType=null) {
 
     let url = buildURL(address, nonce, childType);
     console.log(`DBG: url: ${url}`)
@@ -81,10 +80,10 @@ export async function storeMetadata(address, nonce=null, childType=null) {
 
     const nftstorage = new NFTStorage({ token: NFT_STORAGE_KEY })
 
-    //const cid = await nftstorage.storeBlob(jsonBlob)
-    //console.log(`DBG: cid returned: ${cid}`);
-    const cid = bafkreif2s3tzkmvtrisyfe3eickqygmqsju3fqb2jzo4f6rzk5w32lslfy
-    console.log(`DBG: SUBSTITUTE CONSTANT cid returned: ${cid}`);
+    const cid = await nftstorage.storeBlob(jsonBlob)
+    console.log(`DBG: cid returned: ${cid}`);
+    //const cid = 'bafkreif2s3tzkmvtrisyfe3eickqygmqsju3fqb2jzo4f6rzk5w32lslfy';
+    //console.log(`DBG: SUBSTITUTE CONSTANT cid returned: ${cid}`);
 
     return cid
 }
@@ -96,7 +95,7 @@ export async function storeMetadata(address, nonce=null, childType=null) {
 async function main() {
     const args = process.argv.slice(2)
     if (args.length < 1 || args.length > 3) {
-        console.error(`usage: ${process.argv[0]} ${process.argv[1]} <name> <description> <address> [nonce] [childType]`)
+        console.error(`usage: ${process.argv[0]} ${process.argv[1]} <address> [nonce] [childType]`)
         process.exit(1)
     }
 
@@ -125,8 +124,12 @@ async function main() {
 // Don't forget to actually call the main function!
 // We can't `await` things at the top level, so this adds
 // a .catch() to grab any errors and print them to the console.
+/*
 main()
   .catch(err => {
       console.error(err)
       process.exit(1)
   })
+*/
+
+module.exports = { storeMetadata };
