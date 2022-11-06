@@ -38,7 +38,7 @@ app.get("/parent/:ownerAddress/:tokenId", async (request, response) => {
             throw(`tokenId must be populated: "${tokenId}"`);
         }
 
-        let cid = await storeMetadata(ownerAddress, null, null);
+        let cid = await storeMetadata(ownerAddress, tokenId, null);
         const metadataIpfsUrl = `https://cloudflare-ipfs.com/ipfs/${cid}`
         console.log(`updateParentURI(${tokenId}, ${metadataIpfsUrl}`);
 
