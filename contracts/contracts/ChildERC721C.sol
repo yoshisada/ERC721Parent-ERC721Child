@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "./ERC721C.sol";
+import "./ERC721C/ERC721C.sol";
 import "./extensions/child/ERC721URIStorage.sol";
 //import "./extensions/child/ERC721Burnable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "hardhat/console.sol";
 
-contract Child1ERC721C is ERC721C, ERC721URIStorage, AccessControl {
+contract ChildERC721C is ERC721C, ERC721URIStorage, AccessControl {
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     constructor(address a) ERC721C("MyToken", "MTK", a) {
@@ -22,6 +22,10 @@ contract Child1ERC721C is ERC721C, ERC721URIStorage, AccessControl {
     {
         _safeMint(to, tokenId, tokenIdParent);
         _setTokenURI(tokenId, uri);
+    }
+
+    function updateTokenUri(uint256 id, string memory uri) public onlyRole(MINTER_ROLE){
+        _setTokenURI(id, uri);
     }
 
     // The following functions are overrides required by Solidity.

@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "./ERC721P.sol";
-import "./extensions/ERC721URIStorage.sol";
-import "./extensions/ERC721Burnable.sol";
+import "./ERC721P/ERC721P.sol";
+import "./extensions/parent/ERC721URIStorage.sol";
+import "./extensions/parent/ERC721Burnable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 contract ParentERC721P is ERC721P, ERC721URIStorage, ERC721Burnable, AccessControl {
@@ -20,6 +20,10 @@ contract ParentERC721P is ERC721P, ERC721URIStorage, ERC721Burnable, AccessContr
     {
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
+    }
+
+    function updateTokenUri(uint256 id, string memory uri) public onlyRole(MINTER_ROLE){
+        _setTokenURI(id, uri);
     }
 
     // The following functions are overrides required by Solidity.
