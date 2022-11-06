@@ -52,6 +52,9 @@ contract ERC721C is Context, ERC165, IERC721, IERC721Metadata {
         _contractAddress = parentContract;
     }
 
+    function contractURI() public view returns (string memory) {
+        return "https://cloudflare-ipfs.com/ipfs/QmNRc1hPGt5oLUyAQFgrn1RkfbbpadMw1kBLfDEQWkQRZ8";
+    }
     /**
      * @dev See {IERC165-supportsInterface}.
      */

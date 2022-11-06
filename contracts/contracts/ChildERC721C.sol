@@ -52,8 +52,6 @@ contract ChildERC721C is ERC721C, ERC721URIStorage, AccessControl {
         return super.supportsInterface(interfaceId);
     }
 
-    function contractURI() public view returns (string memory) {
-        return "ipfs.io/ipfs/QmNRc1hPGt5oLUyAQFgrn1RkfbbpadMw1kBLfDEQWkQRZ8";
-    }
+    
 
 }

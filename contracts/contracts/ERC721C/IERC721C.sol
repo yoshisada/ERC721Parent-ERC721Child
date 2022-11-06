@@ -29,6 +29,8 @@ interface IERC721C is IERC165 {
      */
     function balanceOf(address owner) external view returns (uint256 balance);
 
+    function contractURI() external view returns (string memory);
+
     /**
      * @dev Returns the owner of the `tokenId` token.
      *

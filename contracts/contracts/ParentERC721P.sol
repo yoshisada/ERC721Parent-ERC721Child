@@ -54,7 +54,4 @@ contract ParentERC721P is ERC721P, ERC721URIStorage, ERC721Burnable, AccessContr
         _addChildContract(childContract);
     }
 
-    function contractURI() public view returns (string memory) {
-        return "ipfs.io/ipfs/QmUmDXBo4MfhH2pxtEBLRboXDQ9xmXjW2aZDPm9jbW5Kcx";
-    }
 }

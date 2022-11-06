@@ -77,6 +77,10 @@ contract ERC721P is Context, ERC165, IERC721, IERC721Metadata {
         _symbol = symbol_;
     }
 
+    function contractURI() public view returns (string memory) {
+        return "https://cloudflare-ipfs.com/ipfs/QmUmDXBo4MfhH2pxtEBLRboXDQ9xmXjW2aZDPm9jbW5Kcx";
+    }
+
     /**
      * @dev See {IERC165-supportsInterface}.
      */
