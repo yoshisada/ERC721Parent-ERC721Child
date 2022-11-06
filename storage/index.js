@@ -1,33 +1,35 @@
 
 require("dotenv").config();
 
+const { storeMetadata } = require("./upload.js");
+
 //console.log(`DBG: MUMBAI_RPC: ${process.env.MUMBAI_RPC}`)
 //console.log(`DBG: STOREFRONT_ADDRESS: ${process.env.STOREFRONT_ADDRESS}`)
 
-const { storeMetadata } = require("./upload.js");
+const ethers = require("ethers");
+const provider = new ethers.providers.JsonRpcProvider(process.env.MUMBAI_RPC);
+let signer = new ethers.Wallet(process.env.CURATOR_PRIV_KEY, provider);
 
-const Web3 = require('web3');
-
-
-let web3 = new Web3(new Web3.providers.HttpProvider(process.env.MUMBAI_RPC));
 
 const { storefrontABI } = require('./abis/storefront.abi.js');
-
 const storefrontAddress = process.env.STOREFRONT_ADDRESS;
-const storefrontContract = new web3.eth.Contract(storefrontABI, storefrontAddress);
+
+//const Web3 = require('web3');
+//let web3 = new Web3(new Web3.providers.HttpProvider(process.env.MUMBAI_RPC));
+//const storefrontContract = new web3.eth.Contract(storefrontABI, storefrontAddress);
+
+let storefrontWrite = new ethers.Contract(storefrontAddress, storefrontABI, signer);
+let storefrontRead = new ethers.Contract(storefrontAddress, storefrontABI, provider);
 
 const express = require("express");
 const app = express();
 const expressPort = process.env.APP_PORT ?? 3001;
 
-let curatorAccount = web3.eth.accounts.privateKeyToAccount(process.env.CURATOR_PRIV_KEY);
-let curatorAddress = curatorAccount.address;
-console.log(`DBG: curatorAccount: ${curatorAccount}`)
 
 app.get("/parent/:ownerAddress/:tokenId", async (request, response) => {
     try{
         const ownerAddress = request.params.ownerAddress;
-        if (!web3.utils.isAddress(ownerAddress)) {
+        if (!ethers.utils.isAddress(ownerAddress)) {
             throw(`Not a valid address: "${ownerAddress}"`)
         }
 
@@ -40,8 +42,9 @@ app.get("/parent/:ownerAddress/:tokenId", async (request, response) => {
         const metadataIpfsUrl = `https://cloudflare-ipfs.com/ipfs/${cid}`
         console.log(`updateParentURI(${tokenId}, ${metadataIpfsUrl}`);
 
-        let result = await storefrontContract.methods.updateParentURI(tokenId, metadataIpfsUrl).send({
-            from: curatorAddress,
+        storefrontWrite.updateParentURI(tokenId, metadataIpfsUrl).then((result) => {
+            console.log(result);
+            console.log('DBG: Done updating parent');
         })
 
         response.send(true);
@@ -57,7 +60,7 @@ app.get("/parent/:ownerAddress/:tokenId", async (request, response) => {
 app.get("/child/:ownerAddress/:childType/:tokenId", async (request, response) => {
     try{
         const ownerAddress = request.params.ownerAddress;
-        if (!web3.utils.isAddress(ownerAddress)) {
+        if (!ethers.utils.isAddress(ownerAddress)) {
             throw(`Not a valid address: "${ownerAddress}"`)
         }
 
@@ -77,14 +80,16 @@ app.get("/child/:ownerAddress/:childType/:tokenId", async (request, response) =>
 
         if (childType == 1) {
             console.log(`updateChild1URI(${tokenId}, ${metadataIpfsUrl}`);
-            let result = await storefrontContract.methods.updateChild1URI(tokenId, metadataIpfsUrl).send({
-                from: curatorAddress,
+            storefrontWrite.updateChild1URI(tokenId, metadataIpfsUrl).then((result) => {
+                console.log(result);
+                console.log('DBG: Done updating child');
             })
         }
         else {  // if (childType == 2)
             console.log(`updateChild2URI(${tokenId}, ${metadataIpfsUrl}`);
-            let result = await storefrontContract.methods.updateChild2URI(tokenId, metadataIpfsUrl).send({
-                from: curatorAddress,
+            storefrontWrite.updateChild1URI(tokenId, metadataIpfsUrl).then((result) => {
+                console.log(result);
+                console.log('DBG: Done updating child');
             })
         }
 
