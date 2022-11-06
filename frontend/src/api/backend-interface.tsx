@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 import client from '../apollo-client'
 export const useBackendAPI = () => {
-  const fetchParentNFT = async (callback: Function) => {
+  const fetchParentNFT = async () => {
     const { data } = await client.query({
       query: gql`
         query {
@@ -14,7 +14,7 @@ export const useBackendAPI = () => {
       `,
     })
 
-    callback(data)
+    return data
   }
 
   const fetchNFTOwners = async (callback: Function) => {
