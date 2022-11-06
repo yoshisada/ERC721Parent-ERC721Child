@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Image from 'next/image';
-import { AppBar, Container, Toolbar, Box, Button} from '@material-ui/core';
+import { AppBar, Container, Toolbar, Box, Button} from '@mui/material';
 import logo from '../assets/ssmy.png';
 import mmLogo from '../assets/mm.png';
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import { useMetaMaskInterface } from '../api/metamask-interface';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,17 +20,23 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "end",
     alignItems: "center",
-    [theme.breakpoints.down("sm")]: {
-        display: "none",
-      },
+    ['@media (max-width:960px)']: { // eslint-disable-line no-useless-computed-key
+      display: 'none',
+    }
+    // [theme.breakpoints.down("sm")]: {
+    //     display: "none",
+    //   },
   },
 
   ercContainer: {
     height: "60px",
     padding: "5px 0px 5px 50px",
-    [theme.breakpoints.down("sm")]: {
-        display: "none",
-      },
+    ['@media (max-width:960px)']: { // eslint-disable-line no-useless-computed-key
+      display: 'none',
+    }
+    // [theme.breakpoints.down("sm")]: {
+    //     display: "none",
+    //   },
   },
 
   navButton: {

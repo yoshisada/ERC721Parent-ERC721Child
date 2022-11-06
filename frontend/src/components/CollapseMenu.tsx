@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Image from 'next/image';
-import { Box, Button, Accordion, AccordionSummary, AccordionDetails, Typography} from '@material-ui/core';
+import { Box, Button, Accordion, AccordionSummary, AccordionDetails, Typography} from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import logo from '../assets/ssmy.png';
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
 

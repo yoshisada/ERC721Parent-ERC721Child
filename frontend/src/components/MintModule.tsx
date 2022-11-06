@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Image from 'next/image';
-import { AppBar, Container, Toolbar, Box, Button} from '@material-ui/core';
+import { AppBar, Container, Toolbar, Box, Button} from '@mui/material';
 import logo from '../assets/ssmy.png';
 import mmLogo from '../assets/mm.png';
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
 
