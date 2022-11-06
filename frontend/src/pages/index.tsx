@@ -10,9 +10,11 @@ import ethLogo from '../assets/eth-logo.png';
 import { useBackendAPI } from '../api/backend-interface'
 
 export default function Home() {
-  const { fetchParentNFT } = useBackendAPI()
+  const { fetchParentNFT, fetchParentChild } = useBackendAPI()
   const parentData = fetchParentNFT();
+  const relational = fetchParentChild(1);
   console.log(parentData)
+  console.log(relational)
   return (
     <div className={styles.container}>
       <Head>
