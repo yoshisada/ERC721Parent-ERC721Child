@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import NavBar from '../components/NavBar'
 import CollapseMenu from '../components/CollapseMenu'
-import { Box, Divider } from '@material-ui/core' ;
+import { Box, Divider } from '@mui/material' ;
 import GoalsGrid from '../components/GoalsGrid';
 import logo from '../assets/ssmy.png';
 import ethLogo from '../assets/eth-logo.png';

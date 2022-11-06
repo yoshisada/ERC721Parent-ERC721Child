@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Image from 'next/image';
-import { Box } from '@material-ui/core';
-import { makeStyles } from "@material-ui/core/styles";
+import { Box } from '@mui/material';
+import { makeStyles } from "@mui/styles";
 import one from '../assets/bracelet1.png';
 import two from '../assets/bracelet2.png';
 import three from '../assets/bracelet3.png';
