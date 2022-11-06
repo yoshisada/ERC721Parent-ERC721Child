@@ -1,0 +1,165 @@
+type ChildMinted @entity {
+  id: ID!
+  cid: BigInt! # uint256
+  parentId: BigInt! # uint256
+  price: BigInt! # uint256
+  owner: Bytes! # address
+}
+
+type ParentMinted @entity {
+  id: ID!
+  cid: BigInt! # uint256
+  price: BigInt! # uint256
+  owner: Bytes! # address
+}
+
+type RoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type RoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type RoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type StorefrontPaused @entity {
+  id: ID!
+}
+
+type StorefrontUnpaused @entity {
+  id: ID!
+}
+type Approval @entity {
+  id: ID!
+  owner: Bytes! # address
+  approved: Bytes! # address
+  tokenId: BigInt! # uint256
+}
+
+type ApprovalForAll @entity {
+  id: ID!
+  owner: Bytes! # address
+  operator: Bytes! # address
+  approved: Boolean! # bool
+}
+
+type ChildAdded @entity {
+  id: ID!
+  childContract: Bytes! # address
+  childId: BigInt! # uint256
+  parentId: BigInt! # uint256
+}
+
+type ChildBurned @entity {
+  id: ID!
+  childContract: Bytes! # address
+  childId: BigInt! # uint256
+}
+
+type ChildTransfer @entity {
+  id: ID!
+  childContract: Bytes! # address
+  childId: BigInt! # uint256
+  newHolder: Bytes! # address
+}
+
+type ContractRoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type ContractRoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type ContractRoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type Transfer @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt! # uint256
+}
+type ParentApproval @entity {
+  id: ID!
+  owner: Bytes! # address
+  approved: Bytes! # address
+  tokenId: BigInt! # uint256
+}
+
+type ParentApprovalForAll @entity {
+  id: ID!
+  owner: Bytes! # address
+  operator: Bytes! # address
+  approved: Boolean! # bool
+}
+
+type ParentChildAdded @entity {
+  id: ID!
+  childContract: Bytes! # address
+  childId: BigInt! # uint256
+  parentId: BigInt! # uint256
+}
+
+type ParentChildBurned @entity {
+  id: ID!
+  childContract: Bytes! # address
+  childId: BigInt! # uint256
+}
+
+type ParentChildTransfer @entity {
+  id: ID!
+  childContract: Bytes! # address
+  childId: BigInt! # uint256
+  newHolder: Bytes! # address
+}
+
+type ParentRoleAdminChanged @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  previousAdminRole: Bytes! # bytes32
+  newAdminRole: Bytes! # bytes32
+}
+
+type ParentRoleGranted @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type ParentRoleRevoked @entity {
+  id: ID!
+  role: Bytes! # bytes32
+  account: Bytes! # address
+  sender: Bytes! # address
+}
+
+type ParentTransfer @entity {
+  id: ID!
+  from: Bytes! # address
+  to: Bytes! # address
+  tokenId: BigInt! # uint256
+}

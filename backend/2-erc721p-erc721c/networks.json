@@ -1,0 +1,13 @@
+{
+  "mumbai": {
+    "Storefront": {
+      "address": "0x15f991F082D0ac4954edbB656b8cA306013e6b7c"
+    },
+    "Contract": {
+      "address": "0x2619B313652f4EF6f576bc5265ce471E1b4bc923"
+    },
+    "Parent": {
+      "address": "0x2619B313652f4EF6f576bc5265ce471E1b4bc923"
+    }
+  }
+}

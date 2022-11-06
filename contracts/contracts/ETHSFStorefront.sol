@@ -33,9 +33,11 @@ contract ETHSFStorefront is AccessControl {
     event StorefrontPaused();
     event StorefrontUnpaused();
 
-    event ParentMinted(uint256 id, uint256 price, address owner);
+    event ParentMinted(uint256 childId, uint256 price, address owner, address contractAddress);
 
-    event ChildMinted(uint256 id, uint256 parentId, uint256 price, address owner);
+    event ChildMinted(uint256 childId, uint256 parentId, uint256 price, address owner, address contractAddress);
+
+    event URIUpdated(uint256 nftId, address contractAddress, string uri);
 
     constructor(address _parent, address _child1, address _child2) {
         parentAddress = _parent;
@@ -104,7 +106,7 @@ contract ETHSFStorefront is AccessControl {
         //restrict one parent per address
 
         parent.safeMint(msg.sender, counterParent, "abcdefg");
-        emit ParentMinted(counterParent, price, msg.sender);
+        emit ParentMinted(counterParent, price, msg.sender, address(parent));
         _holder[msg.sender] = true;
         _lockParentURI[counterParent] = false;
         counterParent++;
@@ -118,7 +120,7 @@ contract ETHSFStorefront is AccessControl {
         //restrict one parent per address
 
         child1.safeMint(msg.sender, counterChild1, parentId, "abcdefg");
-        emit ChildMinted(counterChild1, parentId, price, msg.sender);
+        emit ChildMinted(counterChild1, parentId, price, msg.sender, address(child1));
         _lockChild1URI[counterChild1] = false;
         counterChild1++;
     }
@@ -130,8 +132,8 @@ contract ETHSFStorefront is AccessControl {
         //check for max prints here
         //restrict one parent per address
 
-        child1.safeMint(msg.sender, counterChild2, parentId, "abcdefg");
-        emit ChildMinted(counterChild2, parentId, price, msg.sender);
+        child2.safeMint(msg.sender, counterChild2, parentId, "abcdefg");
+        emit ChildMinted(counterChild2, parentId, price, msg.sender, address(child2));
         _lockChild1URI[counterChild2] = false;
         counterChild2++;
     }
@@ -140,17 +142,21 @@ contract ETHSFStorefront is AccessControl {
         require(!_lockParentURI[id], "URI Already Updated");
         parent.updateTokenUri(id, uri);
         _lockParentURI[id] = true;
+        emit URIUpdated(id, address(parent), uri);
     }
 
     function updateChild1URI(uint256 id, string memory uri) public onlyRole(CURATOR_ROLE){
         require(!_lockChild1URI[id], "URI Already Updated");
         child1.updateTokenUri(id, uri);
         _lockChild1URI[id] = true;
+        emit URIUpdated(id, address(child1), uri);
+        
     }
 
     function updateChild2URI(uint256 id, string memory uri) public onlyRole(CURATOR_ROLE){
         require(!_lockChild2URI[id], "URI Already Updated");
         child2.updateTokenUri(id, uri);
         _lockChild2URI[id] = true;
+        emit URIUpdated(id, address(child2), uri);
     }
 }

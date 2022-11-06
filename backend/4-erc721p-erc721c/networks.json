@@ -1,0 +1,16 @@
+{
+  "mumbai": {
+    "Storefront": {
+      "address": "0x50a836cc05327750CC791E000620955a4Fc63248"
+    },
+    "Parent": {
+      "address": "0x9DFF2f6fA6BBEA546399c817571f48bd1182870D"
+    },
+    "Child1": {
+      "address": "0x436e181313c762D352e5a1EbC36C8D3B627B9d0F"
+    },
+    "Child2": {
+      "address": "0x5aD881C218554Bb03d138fa8cda2383141f4abb0"
+    }
+  }
+}
