@@ -1,12 +1,12 @@
-import * as React from 'react';
 import Image from 'next/image';
 import { AppBar, Container, Toolbar, Box, Button} from '@mui/material';
 import logo from '../assets/ssmy.png';
 import mmLogo from '../assets/mm.png';
 import { makeStyles } from "@mui/styles";
 import { useMetaMaskInterface } from '../api/metamask-interface';
+import MetaMaskButton from './MetaMaskButton';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   logo: {
     margin: "0 0 0 20px"
   },
@@ -64,31 +64,12 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: "underline"
     }
   },
-
-  mmButton: {
-    height: "50px",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "white",
-    borderRadius: "55px",
-    color: "black",
-    padding: "0 20px 0 20px",
-    margin: "0 30px 0 15px",
-    fontFamily: "AKRegular",
-    "&:hover": {
-        backgroundColor: "transparent",
-        color: "white",
-        outline: "medium solid white"
-    }
-  },
-  mmImage: {
-    marginRight: "10px"
-  }
 }));
 
 function NavBar() {
 
     const styles = useStyles();
+    const {metaMaskStatus, metaMaskAccount, connectMetaMask} = useMetaMaskInterface();
 
     return(
         <AppBar className={styles.appbar} elevation={0}>
@@ -122,10 +103,7 @@ function NavBar() {
                         Source
                     </Button>
 
-                    <Button className={styles.mmButton}>
-                        <Image src={mmLogo} alt="MetaMask" width={30} className={styles.mmImage}/>
-                        Connect
-                    </Button>
+                    <MetaMaskButton/>
             
                 </Box>
             </Toolbar>

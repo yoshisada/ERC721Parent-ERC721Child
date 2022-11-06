@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     triplegrid: {
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
-        marginTop: "80px",
+        marginTop: "50px",
         ['@media (max-width:960px)']: { // eslint-disable-line no-useless-computed-key
           gridTemplateColumns: "repeat(1, 1fr)",
         }
