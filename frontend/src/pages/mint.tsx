@@ -3,8 +3,9 @@ import Image from 'next/image'
 import NavBar from '../components/NavBar'
 import homeStyles from '../styles/Home.module.css'
 import styles from '../styles/Mint.module.css'
-import { Box } from '@material-ui/core'
+import { Box, Button } from '@material-ui/core'
 import ImageCarousel from '../components/ImageCarousel'
+import MintModule from '../components/MintModule'
 
 export default function Mint() {
     return(
@@ -15,16 +16,17 @@ export default function Mint() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
+            <main className={styles.main}>
             <NavBar />
-
-            <main className={homeStyles.main}>
-                <Box className={homeStyles.divide}></Box>
                 <Box className={styles.mintContainer}>
-                    <h1 className={`${styles.mintTitle}`}>
-                        <a>Mint</a> your NFT.
-                    </h1>
+                    <Box className={styles.mintInfoContainer}>
+                        <div className={styles.title}><a>Mint</a> your NFT.</div>
+
+                        <MintModule/>
+                    </Box>
 
                     <ImageCarousel/>
+
                 </Box>
             </main>
 

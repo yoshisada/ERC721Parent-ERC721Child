@@ -4,6 +4,7 @@ import { AppBar, Container, Toolbar, Box, Button} from '@material-ui/core';
 import logo from '../assets/ssmy.png';
 import mmLogo from '../assets/mm.png';
 import { makeStyles } from "@material-ui/core/styles";
+import { useMetaMaskInterface } from '../api/metamask-interface';
 
 const useStyles = makeStyles((theme) => ({
   logo: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
   ercContainer: {
     height: "60px",
-    padding: "5px 0px 5px 80px",
+    padding: "5px 0px 5px 50px",
     [theme.breakpoints.down("sm")]: {
         display: "none",
       },
@@ -53,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "5px",
     height: "15px",
     alignItems: "center",
-    "&:hover a": {
+    "&:hover": {
         textDecoration: "underline"
     }
   },
@@ -66,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "55px",
     color: "black",
     padding: "0 20px 0 20px",
-    marginLeft: "10px",
+    margin: "0 30px 0 15px",
     fontFamily: "AKRegular",
     "&:hover": {
         backgroundColor: "transparent",
@@ -92,13 +93,12 @@ function NavBar() {
                 </a>
 
                 <Box className={styles.ercContainer}>
-
-                    <Button className={styles.ercButton}>
-                    👨 <a>ERC721 Parent</a>
+                    <Button className={styles.ercButton} href="/">
+                    👨 ERC721 Parent
                     </Button>
 
-                    <Button className={styles.ercButton}>
-                    🧒 <a>ERC721 Child</a>
+                    <Button className={styles.ercButton} href="/">
+                    🧒 ERC721 Child
                     </Button>
                 </Box>
 
