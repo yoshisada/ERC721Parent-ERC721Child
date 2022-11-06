@@ -1,3 +1,4 @@
+import { storefrontABI } from './abis/storefront.abi'
 import { useMetaMask } from 'metamask-react'
 import { config } from './config'
 import { useState } from 'react'
@@ -8,6 +9,15 @@ export const useMetaMaskInterface = () => {
 
     const [metaMaskFocus, setMetaMaskFocus] = useState(false)
     const [metaMaskError, setMetaMaskError] = useState('')
+    const [pendingId, setPendingId] = useState('')
+    const [txSuccessful, setTxSuccessful] = useState(false)
+    const [resyncData, setResyncData] = useState(false)
+
+
+    const parseError = (err: any) => {
+        console.log(err?.code)
+        return err?.code === 'INSUFFICIENT_FUNDS' || err?.code === -32000
+    }
 
     const checkChain = async () => {
         const cid = config.contractParams.chainId
@@ -16,7 +26,6 @@ export const useMetaMaskInterface = () => {
             await switchChain(cid)
         }
         catch(error){
-            //Chain ID has not been added to MetaMask
             if((error as any).code === 4902){
                 await addChain(config.contractParams)
             }
@@ -27,7 +36,7 @@ export const useMetaMaskInterface = () => {
         }
     }
 
-    const connectMetaMask= async () => {
+    const connectMetaMask = async () => {
         if (metaMaskStatus === "notConnected") {
             setMetaMaskFocus(true);
             try {
@@ -54,6 +63,36 @@ export const useMetaMaskInterface = () => {
         }
     }
 
+    // Create into mint parent, mint child1, mint child2
+    const buyNFT = async () => {
+        if (metaMaskStatus === "connected") {
+            setMetaMaskFocus(true);
+            await checkChain();
+            const metaMaskSigner = await getMetaMaskSigner();
+            const storefrontContract = new ethers.Contract(config.addresses.storefrontAddress, storefrontABI, metaMaskSigner)
+            try {
+                const mintTx = await storefrontContract.mint() // Edit for mint func name
+                setMetaMaskFocus(false);
+                setPendingId(mintTx.hash);
+                await mintTx.wait();
+                setTxSuccessful(true);
+                setMetaMaskError('');
+                setResyncData(true);
+
+            } catch (err) {
+                if (parseError(err)) {
+                    setMetaMaskError("Insufficient Funds")
+                } else {
+                    setMetaMaskError("Unexpected error occurred while minting. Please try again.")
+                }
+                setMetaMaskFocus(false);
+            }
+
+        } else {
+            setMetaMaskError("Please connect your wallet to mint.");
+        }
+    }
+
     return {
         ethers,
         metaMaskStatus,
@@ -62,6 +101,7 @@ export const useMetaMaskInterface = () => {
         metaMaskError,
         checkChain,
         connectMetaMask,
+        buyNFT
     }
 
 }

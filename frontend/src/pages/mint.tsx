@@ -3,11 +3,15 @@ import Image from 'next/image'
 import NavBar from '../components/NavBar'
 import homeStyles from '../styles/Home.module.css'
 import styles from '../styles/Mint.module.css'
-import { Box, Button } from '@material-ui/core'
+import { Box, Button } from '@mui/material'
 import ImageCarousel from '../components/ImageCarousel'
 import MintModule from '../components/MintModule'
+import { useMetaMaskInterface } from '../api/metamask-interface'
 
 export default function Mint() {
+
+    const {metaMaskStatus, metaMaskAccount, connectMetaMask} = useMetaMaskInterface();
+
     return(
         <div className={homeStyles.container}>
             <Head>

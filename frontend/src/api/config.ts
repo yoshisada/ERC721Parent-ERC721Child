@@ -12,23 +12,25 @@ function getDevConfig() {
 }
 
 function getStagConfig() {
-  const chainNum = 4
+  const chainNum = 80001
   return {
     backend: {
       url: backendURL ?? "http://thisabled-backend:3000"
     },
     addresses: {
-      storefrontAddress: '',
-      nftAddress: ''
+      parent: '0x4eB871943Af8F302536b78D7Ed3167f13bB931FA',
+      child1: '0x0b846F3c5505236d5Cc8a4fD15ee5cF174db2987',
+      child2: '0x03D08D67a32659816e4F8c4c7813251789bf256FZ',
+      storefrontAddress: '0xa57079afC7a1E9A38c6368d9789bE007Da9101b6'
     },
     contractParams: {
       chainId: `0x${chainNum.toString(16)}`,
-      chainName: "Rinkeby Testnet",
-      rpcUrls: ["https://rinkeby.infura.io/v3/"],
-      blockExplorerUrls: ["https://rinkeby.etherscan.io/"],
+      chainName: "Mumbai Testnet",
+      rpcUrls: [process.env.MUMBAI_RPC],
+      blockExplorerUrls: ["https://polygonscan.com/"],
       nativeCurrency: {
-        name: "Rinkeby Ether",
-        symbol: "ETH",
+        name: "Mumbai Matic",
+        symbol: "MATIC",
         decimals: 18
       }
     }
@@ -36,23 +38,25 @@ function getStagConfig() {
 }
 
 function getProdConfig() {
-  const chainNum = 1
+  const chainNum = 137
   return {
     backend: {
       url: backendURL ?? "http://thisabled-backend:3000"
     },
     addresses: {
-      storefrontAddress: '',
-      nftAddress: ''
+      parent: '',
+      child1: '',
+      child2: '',
+      storefrontAddress: ''
     },
     contractParams: {
       chainId: `0x${chainNum.toString(16)}`,
-      chainName: "Ethereum Mainnet",
-      rpcUrls: ["https://mainnet.infura.io/v3/"],
-      blockExplorerUrls: ["https://etherscan.io/"],
+      chainName: "Polygon Mainnet",
+      rpcUrls: ["https://polygon-rpc.com/"],
+      blockExplorerUrls: ["https://polygonscan.com/"],
       nativeCurrency: {
-        name: "Ether",
-        symbol: "ETH",
+        name: "Matic Token",
+        symbol: "MATIC",
         decimals: 18
       }
     }
