@@ -1,0 +1,29 @@
+
+.main {
+    height: 100vh;
+    padding: 4rem 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-anchor: none;
+  }
+
+.mintTitle {
+    color: white;
+    line-height: 1;
+    font-size: max(3rem, 5vw);
+    font-family: 'AKBold';
+    height: 50%;
+    margin-top: 70px;
+}
+
+.mintTitle a {
+    color: #FFCC30;
+}
+
+.mintContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: 100%;
+}
+
