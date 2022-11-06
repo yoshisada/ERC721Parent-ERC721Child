@@ -1,0 +1,152 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Storefront
+    network: mumbai
+    source:
+      address: "0x0d3F0100F338bDa665644C3892Cd7D1690Ec71aE"
+      abi: Storefront
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - ChildMinted
+        - ParentMinted
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - StorefrontPaused
+        - StorefrontUnpaused
+      abis:
+        - name: Storefront
+          file: ./abis/Storefront.json
+      eventHandlers:
+        - event: ChildMinted(uint256,uint256,uint256,address)
+          handler: handleChildMinted
+        - event: ParentMinted(uint256,uint256,address)
+          handler: handleParentMinted
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: StorefrontPaused()
+          handler: handleStorefrontPaused
+        - event: StorefrontUnpaused()
+          handler: handleStorefrontUnpaused
+      file: ./src/storefront.ts
+  - kind: ethereum
+    name: Parent
+    network: mumbai
+    source:
+      address: "0xa5c2F76F54D70dFAf106830bc5B00BCe6957a5CC"
+      abi: Parent
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Approval
+        - ApprovalForAll
+        - ChildAdded
+        - ChildBurned
+        - ChildTransfer
+        - ParentRoleAdminChanged
+        - ParentRoleGranted
+        - ParentRoleRevoked
+        - Transfer
+      abis:
+        - name: Parent
+          file: ./abis/Parent.json
+      eventHandlers:
+        - event: Approval(indexed address,indexed address,indexed uint256)
+          handler: handleApproval
+        - event: ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleApprovalForAll
+        - event: ChildAdded(address,uint256,uint256)
+          handler: handleChildAdded
+        - event: ChildBurned(address,uint256)
+          handler: handleChildBurned
+        - event: ChildTransfer(address,uint256,address)
+          handler: handleChildTransfer
+        - event: ParentRoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleParentRoleAdminChanged
+        - event: ParentRoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleParentRoleGranted
+        - event: ParentRoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleParentRoleRevoked
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/parent.ts
+  - kind: ethereum
+    name: Child1
+    network: mumbai
+    source:
+      address: "0xD0dEA16545cfe35818f00194c65ce4D8d3316517"
+      abi: Child1
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Child1Approval
+        - Child1ApprovalForAll
+        - Child1RoleAdminChanged
+        - Child1RoleGranted
+        - Child1RoleRevoked
+        - Child1Transfer
+      abis:
+        - name: Child1
+          file: ./abis/Child1.json
+      eventHandlers:
+        - event: Child1Approval(indexed address,indexed address,indexed uint256)
+          handler: handleChild1Approval
+        - event: Child1ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleChild1ApprovalForAll
+        - event: Child1RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleChild1RoleAdminChanged
+        - event: Child1RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleChild1RoleGranted
+        - event: Child1RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleChild1RoleRevoked
+        - event: Child1Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleChild1Transfer
+      file: ./src/child-1.ts
+  - kind: ethereum
+    name: Child2
+    network: mumbai
+    source:
+      address: "0x3D06Fa2044e8D57ae595c6764Dfe882313264455"
+      abi: Child2
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Child2Approval
+        - Child2ApprovalForAll
+        - Child2RoleAdminChanged
+        - Child2RoleGranted
+        - Child2RoleRevoked
+        - Child2Transfer
+      abis:
+        - name: Child2
+          file: ./abis/Child2.json
+      eventHandlers:
+        - event: Child2Approval(indexed address,indexed address,indexed uint256)
+          handler: handleChild2Approval
+        - event: Child2ApprovalForAll(indexed address,indexed address,bool)
+          handler: handleChild2ApprovalForAll
+        - event: Child2RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleChild2RoleAdminChanged
+        - event: Child2RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleChild2RoleGranted
+        - event: Child2RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleChild2RoleRevoked
+        - event: Child2Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleChild2Transfer
+      file: ./src/child-2.ts

@@ -1,0 +1,84 @@
+specVersion: 0.0.4
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Storefront
+    network: mumbai
+    source:
+      address: "0x15f991F082D0ac4954edbB656b8cA306013e6b7c"
+      abi: Storefront
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - ChildMinted
+        - ParentMinted
+        - RoleAdminChanged
+        - RoleGranted
+        - RoleRevoked
+        - StorefrontPaused
+        - StorefrontUnpaused
+      abis:
+        - name: Storefront
+          file: ./abis/Storefront.json
+      eventHandlers:
+        - event: ChildMinted(uint256,uint256,uint256,address)
+          handler: handleChildMinted
+        - event: ParentMinted(uint256,uint256,address)
+          handler: handleParentMinted
+        - event: RoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleRoleAdminChanged
+        - event: RoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleGranted
+        - event: RoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleRoleRevoked
+        - event: StorefrontPaused()
+          handler: handleStorefrontPaused
+        - event: StorefrontUnpaused()
+          handler: handleStorefrontUnpaused
+      file: ./src/storefront.ts
+  - kind: ethereum
+    name: Parent
+    network: mumbai
+    source:
+      address: "0x2619B313652f4EF6f576bc5265ce471E1b4bc923"
+      abi: Parent
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - ParentApproval
+        - ParentApprovalForAll
+        - ParentChildAdded
+        - ParentChildBurned
+        - ParentChildTransfer
+        - ParentRoleAdminChanged
+        - ParentRoleGranted
+        - ParentRoleRevoked
+        - ParentTransfer
+      abis:
+        - name: Parent
+          file: ./abis/Parent.json
+      eventHandlers:
+        - event: ParentApproval(indexed address,indexed address,indexed uint256)
+          handler: handleParentApproval
+        - event: ParentApprovalForAll(indexed address,indexed address,bool)
+          handler: handleParentApprovalForAll
+        - event: ParentChildAdded(address,uint256,uint256)
+          handler: handleParentChildAdded
+        - event: ParentChildBurned(address,uint256)
+          handler: handleParentChildBurned
+        - event: ParentChildTransfer(address,uint256,address)
+          handler: handleParentChildTransfer
+        - event: ParentRoleAdminChanged(indexed bytes32,indexed bytes32,indexed bytes32)
+          handler: handleParentRoleAdminChanged
+        - event: ParentRoleGranted(indexed bytes32,indexed address,indexed address)
+          handler: handleParentRoleGranted
+        - event: ParentRoleRevoked(indexed bytes32,indexed address,indexed address)
+          handler: handleParentRoleRevoked
+        - event: ParentTransfer(indexed address,indexed address,indexed uint256)
+          handler: handleParentTransfer
+      file: ./src/parent.ts
