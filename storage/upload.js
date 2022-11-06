@@ -11,29 +11,37 @@ const { Blob } = require('buffer');
 const NFT_STORAGE_KEY = process.env.NFT_STORAGE_KEY
 
 
+// parents will pass their tokenId as the nonce but childType will be null
 function buildURL(address, nonce, childType) {
     let url = `https://ipfs.io/ipfs/QmQUY8AgEh7zsH4DFwa7qg5qpDLw2VeEC1sqsdpYguDFXj?addr=${address}`
-    if (nonce != null) {
+
+    if (childType != null) {
         url += `&extra=${nonce}`
+        if (childType == 2) {
+            url += `&circles=1`
+        }
     }
-    if (childType == 2) {
-        url += `&circles=1`
-    }
+
     return url;
 }
 
+// parents will pass their tokenId as the nonce but childType will be null
 function getJsonBlob(address, url, nonce, childType) {
-    let nftType = 'Parent';
-    if (nonce) {
+
+    let nftType = 'Parent Token'
+    let name = `Blob Fam ${nftType} #${nonce}`;
+
+    if (childType != null) {
         if (childType != 2) {
             childType = 1;
         }
-        nftType = `Child Type-${childType}`;
+        nftType = `Child-${childType}`
+        name = `Blob Fam Child Type-${childType} #${nonce}`;
     }
 
     let obj = {
-        "name": `Unrevealed ${nftType} NFT`,
-        "description": `Unrevealed ${nftType} NFT!!`,
+        "name": name,
+        "description": `${name} is a generative art token implementing ERC-721P/C, an interface that creates a Parent-to-Child contract relationship that enables an associated tokens to travel with its parent`,
         "image": url,
         "animation_url": url,
         "attributes": [{
@@ -68,7 +76,7 @@ function getJsonBlob(address, url, nonce, childType) {
 /**
   * Reads an image file from `imagePath` and stores an NFT with the given name and description.
   * @param {string} address wallet address to mint for
-  * @param {string} [nonce] an optional string to seed the background data
+  * @param {string} [nonce] string to seed the background data (tokenId)
   * @param {int} [childType] 1 for square background, 2 for spirals
   */
 async function storeMetadata(address, nonce=null, childType=null) {
@@ -121,7 +129,7 @@ async function main() {
     console.log(`DBG: check out: ${storageUrl}`);
 }
 
-// Don't forget to actually call the main function!
+// For testing, uncomment this and just run this file
 // We can't `await` things at the top level, so this adds
 // a .catch() to grab any errors and print them to the console.
 /*
