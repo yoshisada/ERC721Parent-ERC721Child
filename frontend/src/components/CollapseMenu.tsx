@@ -49,12 +49,12 @@ function CollapseMenu() {
                 <AccordionSummary
                     expandIcon={<ExpandMore htmlColor='white' fontSize='large' />}
                 >
-                    <Typography className={styles.accordTitle}>3D PFP NFT Collection</Typography>
+                    <Typography className={styles.accordTitle}>NFT Gamification</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography className={styles.accordDetails}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                        Within the context of NFT games, a player accumulates items and rewards and can store them within one 'backpack' token. That player could then sell the entire backpack easily, transferring the backpack and thus all of the items to a buyer.
+                        To trade individual items, the two parent 'backpack' tokens could come together to create an agreement to exchange specific child tokens.
                     </Typography>
                 </AccordionDetails>
             </Accordion>
@@ -68,8 +68,7 @@ function CollapseMenu() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography className={styles.accordDetails}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                        For social/government documents rather than having each document be its own individual token without any encapsulation, one could establish a parent token to capture all related documents needed. Whenever these documents are required they are all in one place and can be signed/approved/transferred.
                     </Typography>
                 </AccordionDetails>
             </Accordion>
@@ -82,10 +81,9 @@ function CollapseMenu() {
                     <Typography className={styles.accordTitle}>Distribution of Next Generation Art</Typography>
                 </AccordionSummary>
                     <AccordionDetails>
-                    <Typography className={styles.accordDetails}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
-                    </Typography>
+                        <Typography className={styles.accordDetails}>
+                            Similar to the example NFT collection we built on this site, the genesis collection can be carried on to child collections where the parent is represented in each iteration. The parent and child contract relationship can serve to automate the process of achieving generational trait additions.
+                        </Typography>
                     </AccordionDetails>
             </Accordion>
 
@@ -98,8 +96,7 @@ function CollapseMenu() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography className={styles.accordDetails}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                        malesuada lacus ex, sit amet blandit leo lobortis eget.
+                        There are a lot of NFT collections that fall into obscurity after the first genesis mint due to the lack of representation as volume dies out. Some collections may want to add more items to their ecosystem to generate attention and volume while maintaining their genesis collection. 
                     </Typography>
                 </AccordionDetails>
             </Accordion>

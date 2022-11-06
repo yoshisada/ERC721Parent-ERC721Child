@@ -16,9 +16,9 @@ const useStyles = makeStyles((theme) => ({
     },
 
     triplegriditem: {
-        padding: "0 30px 0 30px",
+        padding: "30px 30px 0 30px",
         ['@media (max-width:960px)']: { // eslint-disable-line no-useless-computed-key
-          marginBottom: "30px"
+          margin: "0 0 30px 0"
         }
     },
 
@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
 
     itemDesc: {
         fontFamily: "AKRegular",
-        fontSize: "max(1rem, 1vw)"
+        fontSize: "max(1rem, 1vw)",
+        lineHeight: "2"
     }
   
 }));
@@ -41,21 +42,18 @@ function GoalsGrid() {
     return(
       <Box className={styles.triplegrid}>
       <Box className={styles.triplegriditem}>
-        <Image src={require("../assets/stock.jpeg")} alt="one" layout='responsive'/>
         <h1 className={styles.itemTitle}>Parent-Child Interaction</h1>
-        <p className={styles.itemDesc} >NFTs are divided between two contracts,  Parent and Child.  This strucutre allows any parent to own a group of child tokens which follow the parent throughout it’s lifecycle.</p>
+        <p className={styles.itemDesc}>NFTs are divided between two contracts,  Parent and Child.  This structure allows any parent to own a group of child tokens which follow the parent throughout its lifecycle. When the parent token is transferred, all child tokens belonging to it follow.</p>
       </Box>
 
       <Box className={styles.triplegriditem}>
-        <Image src={require("../assets/stock.jpeg")} alt="one" layout='responsive'/>
-        <h1 className={styles.itemTitle}>Parent-Child Interaction</h1>
-        <p className={styles.itemDesc} >NFTs are divided between two contracts,  Parent and Child.  This strucutre allows any parent to own a group of child tokens which follow the parent throughout it’s lifecycle.</p>
+        <h1 className={styles.itemTitle}>Expandable Ecosystem</h1>
+        <p className={styles.itemDesc} >After an NFT's mints its genesis collection founders are able to deploy child collections directly tied to the genesis mint. A collection within a collection. This gives the ability to manage and maintain associated tokens within one parent token.</p>
       </Box>
 
       <Box className={styles.triplegriditem}>
-        <Image src={require("../assets/stock.jpeg")} alt="one" layout='responsive'/>
-        <h1 className={styles.itemTitle}>Parent-Child Interaction</h1>
-        <p className={styles.itemDesc} >NFTs are divided between two contracts,  Parent and Child.  This strucutre allows any parent to own a group of child tokens which follow the parent throughout it’s lifecycle.</p>
+        <h1 className={styles.itemTitle}>Generative Iteration</h1>
+        <p className={styles.itemDesc} >The Art Blocks project was a part of the inspiration behind the idea of crafting subsequent, generative tokens that held resemblance to its parent token. Given any child token, one is able to trace its way back to the parent token, viewing the changes throughout each generation.</p>
       </Box>
     </Box>
         

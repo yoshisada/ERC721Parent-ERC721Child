@@ -11,7 +11,7 @@
 
 .title {
     height: 100px;
-    font-size: max(4rem, 6vw);
+    font-size: max(3rem, 6vw);
     margin: 70px 10px 0px 10px;
     font-family: 'AKBold';
 }
@@ -43,5 +43,7 @@
     .mintInfoContainer {
         grid-template-rows: repeat(2, 1fr);
         height: 50vh;
+        justify-items: center;
     }
+
 }

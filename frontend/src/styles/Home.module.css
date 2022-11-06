@@ -49,6 +49,7 @@
   font-size: max(3rem, 6vw);
   margin: 80px 10px 0px 10px;
   font-family: 'AKBold';
+  z-index: 2;
 }
 
 .title,
@@ -61,6 +62,7 @@
   line-height: 1.5;
   font-size: max(2rem, 4vw);
   font-family: 'AKRegular';
+  z-index: 2;
 }
 
 .subtitle {
@@ -68,6 +70,18 @@
   font-size: max(1.5rem, 3vw);
   font-family: 'AKItalic';
   color: #8C8C8C;
+  z-index: 2;
+}
+
+.backImg {
+  position: absolute;
+  z-index: 1;
+  height: 90vh;
+  width: auto;
+  right: 0;
+  bottom: 0;
+  opacity: 0.5;
+  
 }
 
 .logo {
