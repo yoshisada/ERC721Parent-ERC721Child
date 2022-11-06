@@ -64,14 +64,77 @@ export const useMetaMaskInterface = () => {
     }
 
     // Create into mint parent, mint child1, mint child2
-    const buyNFT = async () => {
+    // mintChild1, mintChild2 parameter: parent id
+
+    const mintParent = async () => {
         if (metaMaskStatus === "connected") {
             setMetaMaskFocus(true);
             await checkChain();
             const metaMaskSigner = await getMetaMaskSigner();
             const storefrontContract = new ethers.Contract(config.addresses.storefrontAddress, storefrontABI, metaMaskSigner)
+            
             try {
-                const mintTx = await storefrontContract.mint() // Edit for mint func name
+                const mintTx = await storefrontContract.mintParent()
+                setMetaMaskFocus(false);
+                setPendingId(mintTx.hash);
+                await mintTx.wait();
+                setTxSuccessful(true);
+                setMetaMaskError('');
+                setResyncData(true);
+
+            } catch (err) {
+                if (parseError(err)) {
+                    setMetaMaskError("Insufficient Funds")
+                } else {
+                    setMetaMaskError("Unexpected error occurred while minting. Please try again.")
+                }
+                setMetaMaskFocus(false);
+            }
+
+        } else {
+            setMetaMaskError("Please connect your wallet to mint.");
+        }
+    }
+
+    const mintChild1 = async (tokenId : string) => {
+        if (metaMaskStatus === "connected") {
+            setMetaMaskFocus(true);
+            await checkChain();
+            const metaMaskSigner = await getMetaMaskSigner();
+            const storefrontContract = new ethers.Contract(config.addresses.storefrontAddress, storefrontABI, metaMaskSigner)
+            
+            try {
+                const mintTx = await storefrontContract.mintChild1()
+                setMetaMaskFocus(false);
+                setPendingId(mintTx.hash);
+                await mintTx.wait();
+                setTxSuccessful(true);
+                setMetaMaskError('');
+                setResyncData(true);
+
+            } catch (err) {
+                if (parseError(err)) {
+                    setMetaMaskError("Insufficient Funds")
+                } else {
+                    setMetaMaskError("Unexpected error occurred while minting. Please try again.")
+                }
+                setMetaMaskFocus(false);
+            }
+
+        } else {
+            setMetaMaskError("Please connect your wallet to mint.");
+        }
+    }
+
+    const mintChild2 = async (tokenId : string) => {
+        if (metaMaskStatus === "connected") {
+            setMetaMaskFocus(true);
+            await checkChain();
+            const metaMaskSigner = await getMetaMaskSigner();
+            const storefrontContract = new ethers.Contract(config.addresses.storefrontAddress, storefrontABI, metaMaskSigner)
+            
+            try {
+                const mintTx = await storefrontContract.mintChild2()
                 setMetaMaskFocus(false);
                 setPendingId(mintTx.hash);
                 await mintTx.wait();
@@ -99,9 +162,14 @@ export const useMetaMaskInterface = () => {
         metaMaskAccount,
         metaMaskFocus,
         metaMaskError,
+        pendingId,
+        txSuccessful,
+        resyncData,
+        setResyncData,
         checkChain,
         connectMetaMask,
-        buyNFT
+        mintParent
+
     }
 
 }
